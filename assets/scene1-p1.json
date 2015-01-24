@@ -1,0 +1,89 @@
+	{
+
+		"metadata": {
+			"formatVersion" : 3.1,
+			"generatedBy"   : "Blender 2.7 Exporter",
+			"vertices"      : 20,
+			"faces"         : 9,
+			"normals"       : 2,
+			"colors"        : 0,
+			"uvs"           : [16],
+			"materials"     : 1,
+			"morphTargets"  : 0,
+			"bones"         : 0
+		},
+
+			"scale" : 1.000000,
+
+			"vertices" : [-6.38921,-0.822053,-6.03969,6.84927,-0.822053,-6.0397,-6.38921,7.18789,-6.03969,6.84927,7.18789,-6.0397,-2.44518,-0.822053,-6.0397,-2.44518,7.18789,-6.0397,1.75872,-0.822053,-6.0397,1.75872,7.18789,-6.0397,-6.38921,3.79436,-6.03969,6.84927,3.79436,-6.0397,-2.44518,3.79436,-6.0397,1.75872,3.79436,-6.0397,6.84927,5.36884,-6.0397,-2.44518,5.36884,-6.0397,1.75872,5.36884,-6.0397,-6.38921,5.36884,-6.03969,-6.41809,0.0348131,7.15333,7.23027,0.0348131,7.15333,-6.41809,0.0348125,-6.49503,7.23027,0.0348125,-6.49503],
+			"faces"    : [43,14,12,3,7,0,0,1,2,3,0,0,0,0,43,15,13,5,2,0,4,5,6,7,0,0,0,0,43,13,14,7,5,0,5,0,3,6,0,0,0,0,43,6,1,9,11,0,8,9,10,11,0,0,0,0,43,0,4,10,8,0,12,13,14,15,0,0,0,0,43,4,6,11,10,0,13,8,11,14,0,0,0,0,43,11,9,12,14,0,11,10,1,0,0,0,0,0,43,8,10,13,15,0,15,14,5,4,0,0,0,0,43,16,17,19,18,1,12,9,2,7,1,1,1,1],
+			"uvs"      : [[0.74995,0.74995,0.9999,0.74995,0.9999,0.9999,0.74995,0.9999,0.0001,0.74995,0.5,0.74995,0.5,0.9999,0.0001,0.9999,0.74995,0.0001,0.9999,0.0001,0.9999,0.5,0.74995,0.5,0.0001,0.0001,0.5,0.0001,0.5,0.5,0.0001,0.5]],
+			"normals"  : [0,0,1,0,1,0],
+
+			"skinIndices"  : [],
+			"skinWeights"  : [],
+			"morphTargets" : [],
+
+			"bones"      : [],
+			"animations" : [],
+
+			"colors"    : [],
+			"materials" : [
+				{
+					"DbgColor": 15658734,
+					"DbgIndex": 0,
+					"DbgName": "Material.003",
+					"blending": "NormalBlending",
+					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					"colorEmissive": [0.0, 0.0, 0.0],
+					"colorSpecular": [0.5, 0.5, 0.5],
+					"depthTest": true,
+					"depthWrite": true,
+					"mapBump": "Piso-Normal.png",
+					"mapBumpRepeat": [5, 5],
+					"mapBumpScale": 0.004999999888241291,
+					"mapBumpWrap": ["repeat", "repeat"],
+					"mapDiffuse": "Piso-Diffuse.png",
+					"mapDiffuseRepeat": [5, 5],
+					"mapDiffuseWrap": ["repeat", "repeat"],
+					"mapSpecular": "Piso-Specular.png",
+					"mapSpecularRepeat": [5, 5],
+					"mapSpecularWrap": ["repeat", "repeat"],
+					"shading": "Phong",
+					"specularCoef": 40,
+					"transparency": 1.0,
+					"transparent": false,
+					"vertexColors": false
+				},
+				{
+					"DbgColor": 15597568,
+					"DbgIndex": 1,
+					"DbgName": "Material.003",
+					"blending": "NormalBlending",
+					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					"colorEmissive": [0.0, 0.0, 0.0],
+					"colorSpecular": [0.5, 0.5, 0.5],
+					"depthTest": true,
+					"depthWrite": true,
+					"mapBump": "Piso-Normal.png",
+					"mapBumpRepeat": [5, 5],
+					"mapBumpScale": 0.004999999888241291,
+					"mapBumpWrap": ["repeat", "repeat"],
+					"mapDiffuse": "Piso-Color.png",
+					"mapDiffuseRepeat": [5, 5],
+					"mapDiffuseWrap": ["repeat", "repeat"],
+					"mapSpecular": "Piso-Specular.png",
+					"mapSpecularRepeat": [5, 5],
+					"mapSpecularWrap": ["repeat", "repeat"],
+					"shading": "Phong",
+					"specularCoef": 40,
+					"transparency": 1.0,
+					"transparent": false,
+					"vertexColors": false
+				}
+			]
+
+
+	}
