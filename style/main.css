@@ -12,3 +12,12 @@ canvas {
     top: 0;
     left: 0;
 }
+
+#loader {
+	position: fixed;
+	background: white;
+	color: black;
+	height: 30px;
+	width: 100%;
+	
+}

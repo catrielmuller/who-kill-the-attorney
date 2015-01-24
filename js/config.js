@@ -5,7 +5,6 @@ var debug = {
   bound: false
 };
 
-
 var config = {
   res: 1,
   antialias : true,
