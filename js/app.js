@@ -20,7 +20,7 @@ app.load = function(){
   app.jsonloader = new THREE.JSONLoader();
 
   app.soundManager = soundManager.setup({
-    url: '/swf/',
+    url: 'swf/',
     flashVersion: 9,
     debugMode: false,
     onready: function() {
@@ -40,9 +40,9 @@ app.load = function(){
 }
 
 app.loadSounds = function(){
-  app.assets.sounds.thunder = app.loader.addSound('thunder','/sounds/thunder.mp3');
-  app.assets.sounds.rain = app.loader.addSound('rain','/sounds/rain.mp3');
-  app.assets.sounds.music = app.loader.addSound('music','/sounds/music.mp3');
+  app.assets.sounds.thunder = app.loader.addSound('thunder','sounds/thunder.mp3');
+  app.assets.sounds.rain = app.loader.addSound('rain','sounds/rain.mp3');
+  app.assets.sounds.music = app.loader.addSound('music','sounds/music.mp3');
 
   app.loadImages();
 }
@@ -108,7 +108,7 @@ app.init = function(){
   app.levels.main.controls = new Controls(app.levels.main.player, utils);
   app.levels.main.controls.zoom(app.levels.main.cameras.main);
 
-  var parse = app.jsonloader.parse(app.assets.jsons.scene.data, '/assets/');
+  var parse = app.jsonloader.parse(app.assets.jsons.scene.data, 'assets/');
   var obj ={geometry: parse.geometry, materials: parse.materials};
   var collisionBound = BoundingBoxCollision(parse.geometry);
 
@@ -120,7 +120,7 @@ app.init = function(){
   app.levels.main.objs.cama2.move(0,0,8);
   app.levels.main.objs.cama2.attachTo(app.levels.main.scene, app.levels.main.physics.world);
   
-  var parse = app.jsonloader.parse(app.assets.jsons.floor.data, '/assets/');
+  var parse = app.jsonloader.parse(app.assets.jsons.floor.data, 'assets/');
   var obj ={geometry: parse.geometry, materials: parse.materials};
   app.levels.main.objs.floor = new Object3D(obj);
   app.levels.main.objs.floor.attachTo(app.levels.main.scene);
