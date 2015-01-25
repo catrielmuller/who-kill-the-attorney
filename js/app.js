@@ -56,19 +56,41 @@ app.loadJsons = function(){
   app.assets.jsons.scene = app.loader.addJson('assets/scene1.json');
   app.assets.jsons.floor = app.loader.addJson('assets/scene1-p1.json');
 
+  app.assets.jsons.cocina = app.loader.addJson('assets/mapa1/cocina.json');
+  app.assets.jsons.alacena = app.loader.addJson('assets/mapa1/alacena.json');
+
+  app.assets.jsons.heladera = app.loader.addJson('assets/mapa1/heladera.json');
+  app.assets.jsons.mesada = app.loader.addJson('assets/mapa1/mesada.json');
+
+  app.assets.jsons.lampara_cocina = app.loader.addJson('assets/mapa1/lampara_cocina.json');
+  app.assets.jsons.cocina_pared = app.loader.addJson('assets/mapa1/cocina_pared.json');
+  app.assets.jsons.cocina_piso = app.loader.addJson('assets/mapa1/piso_cocina.json');
+  app.assets.jsons.cocina_techo = app.loader.addJson('assets/mapa1/techo_cocina.json');
+  app.assets.jsons.ciudad = app.loader.addJson('assets/mapa1/ciudad.json');
+
+  app.assets.jsons.mesa_luz = app.loader.addJson('assets/mapa1/mesa_luz.json');
+  app.assets.jsons.mesa = app.loader.addJson('assets/mapa1/mesa.json');
+
+  app.assets.jsons.collision = app.loader.addJson('assets/mapa1/collision.json');
+
   app.loader.start();
 }
-
+var pos = {
+  x : 10.3,
+  y: 0.6,
+  z: 12.7
+};
 app.init = function(){
 
   app.window.width = window.innerWidth * config.res;
   app.window.height = window.innerHeight * config.res;
 
   app.render = new THREE.WebGLRenderer({antialias: config.antialias});
+
   app.render.setSize(app.window.width, app.window.height);
   app.render.shadowMapEnabled = true;
   app.render.shadowMapType  = THREE.BasicShadowMap;
-  app.render.setClearColor(0x000000, 1);
+  app.render.setClearColor(0x00000, 1);
   document.body.appendChild(app.render.domElement);
 
   utils.lockPointer();
@@ -78,7 +100,7 @@ app.init = function(){
     lights: {},
     objs: {}
   }
-  
+
   app.levels.main.scene = new THREE.Scene();
   app.levels.main.physics = new Physics();
 
@@ -92,12 +114,19 @@ app.init = function(){
   app.levels.main.lights.main.shadowDarkness = 0.0;
   app.levels.main.scene.add(app.levels.main.lights.main);
 
-  app.levels.main.lights.l2 = new THREE.PointLight( 0x00ffff , 2, 5);
-  app.levels.main.lights.l2.position.set(-4,3,-2);
+  app.levels.main.lights.l2 = new THREE.PointLight( 0x00ffff , 2, 10);
+  app.levels.main.lights.l2.position.set(-10,3,-2);
   app.levels.main.scene.add(app.levels.main.lights.l2);
 
-  app.levels.main.lights.hemiLight2 = new THREE.HemisphereLight( 0x0d154f, 0x51a7b1, 0.1 );
+  app.levels.main.lights.hemiLight3 = new THREE.HemisphereLight( 0xbe8d6e, 0x394153, 0.1 );
+  //app.levels.main.lights.hemiLight2 = new THREE.HemisphereLight( 0x425552, 0xfef3e6, 0.00 );
+
+
+ // app.levels.main.lights.hemiLight3 = new THREE.PointLight( 0xbe8d6e, 2, 10 );
+  app.levels.main.lights.hemiLight2 = new THREE.PointLight( 0x425552, 2, 10 );
+
   app.levels.main.scene.add(app.levels.main.lights.hemiLight2);
+  app.levels.main.scene.add(app.levels.main.lights.hemiLight3);
 
   app.levels.main.cameras.main = new THREE.PerspectiveCamera(45, app.window.width / app.window.height, 0.1, 1000);
   app.levels.main.scene.add(app.levels.main.cameras.main);
@@ -119,12 +148,85 @@ app.init = function(){
   app.levels.main.objs.cama2 = new Object3D(obj,collisionBound);
   app.levels.main.objs.cama2.move(0,0,8);
   app.levels.main.objs.cama2.attachTo(app.levels.main.scene, app.levels.main.physics.world);
-  
-  var parse = app.jsonloader.parse(app.assets.jsons.floor.data, '/assets/');
+
+
+  parse = app.jsonloader.parse(app.assets.jsons.cocina.data, './assets/mapa1/');
+  obj ={geometry: parse.geometry, materials: parse.materials};
+  app.levels.main.objs.cocina = new Object3D(obj);
+  app.levels.main.objs.cocina.attachTo(app.levels.main.scene);
+
+
+  parse = app.jsonloader.parse(app.assets.jsons.alacena.data, './assets/mapa1/');
+  obj ={geometry: parse.geometry, materials: parse.materials};
+  app.levels.main.objs.alacena = new Object3D(obj);
+  app.levels.main.objs.alacena.attachTo(app.levels.main.scene);
+
+  parse = app.jsonloader.parse(app.assets.jsons.heladera.data, './assets/mapa1/');
+  obj ={geometry: parse.geometry, materials: parse.materials};
+  app.levels.main.objs.heladera = new Object3D(obj);
+  app.levels.main.objs.heladera.attachTo(app.levels.main.scene);
+
+  parse = app.jsonloader.parse(app.assets.jsons.mesada.data, './assets/mapa1/');
+  obj ={geometry: parse.geometry, materials: parse.materials};
+  app.levels.main.objs.mesada = new Object3D(obj);
+  app.levels.main.objs.mesada.attachTo(app.levels.main.scene);
+
+  parse = app.jsonloader.parse(app.assets.jsons.lampara_cocina.data, './assets/mapa1/');
+  obj ={geometry: parse.geometry, materials: parse.materials};
+  app.levels.main.objs.lampara_cocina = new Object3D(obj);
+  app.levels.main.objs.lampara_cocina.attachTo(app.levels.main.scene);
+
+
+  parse = app.jsonloader.parse(app.assets.jsons.cocina_pared.data, './assets/mapa1/');
+  parse.materials[0].envMap =  parse.materials[0].diffMap;
+  obj ={geometry: parse.geometry, materials: parse.materials};
+  app.levels.main.objs.cocina_pared = new Object3D(obj);
+  app.levels.main.objs.cocina_pared.attachTo(app.levels.main.scene);
+
+  parse = app.jsonloader.parse(app.assets.jsons.cocina_techo.data, './assets/mapa1/');
+  obj ={geometry: parse.geometry, materials: parse.materials};
+  app.levels.main.objs.cocina_techo = new Object3D(obj);
+  app.levels.main.objs.cocina_techo.attachTo(app.levels.main.scene);
+
+
+  parse = app.jsonloader.parse(app.assets.jsons.cocina_piso.data, './assets/mapa1/');
+  obj ={geometry: parse.geometry, materials: parse.materials};
+  app.levels.main.objs.cocina_piso = new Object3D(obj);
+  app.levels.main.objs.cocina_piso.attachTo(app.levels.main.scene);
+
+  parse = app.jsonloader.parse(app.assets.jsons.mesa.data, './assets/mapa1/');
+  obj ={geometry: parse.geometry, materials: parse.materials};
+  app.levels.main.objs.mesa = new Object3D(obj);
+  app.levels.main.objs.mesa.attachTo(app.levels.main.scene);
+
+  app.levels.main.objs.mesa_cocina = new Object3D(obj);
+  app.levels.main.objs.mesa_cocina.attachTo(app.levels.main.scene);
+  app.levels.main.objs.mesa_cocina.mesh.scale.set(0.65,0.65,0.65);
+
+  app.levels.main.objs.mesa_cocina.move(10.3, 0.6,12.7);
+
+
+
+
+  parse = app.jsonloader.parse(app.assets.jsons.mesa_luz.data, './assets/mapa1/');
+  obj ={geometry: parse.geometry, materials: parse.materials};
+  app.levels.main.objs.mesa_luz = new Object3D(obj);
+  app.levels.main.objs.mesa_luz.attachTo(app.levels.main.scene);
+
+  parse = app.jsonloader.parse(app.assets.jsons.ciudad.data, './assets/mapa1/');
+  obj ={geometry: parse.geometry, materials: parse.materials};
+  app.levels.main.objs.ciudad = new Object3D(obj);
+  app.levels.main.objs.ciudad.attachTo(app.levels.main.scene);
+  app.levels.main.objs.ciudad.mesh.receiveShadow = false;
+
+  var parse = app.jsonloader.parse(app.assets.jsons.collision.data, '/assets/mapa1/');
   var obj ={geometry: parse.geometry, materials: parse.materials};
-  app.levels.main.objs.floor = new Object3D(obj);
-  app.levels.main.objs.floor.attachTo(app.levels.main.scene);
-  
+  var collisionBound = GeometryCollision(parse.geometry);
+
+  app.levels.main.objs.collision = new Object3D(obj,collisionBound);
+  app.levels.main.objs.collision.move(0,0,0);
+  app.levels.main.objs.collision.attachTo(false, app.levels.main.physics.world);
+
   app.animate();
 }
 
@@ -133,11 +235,17 @@ app.animate = function(){
     app.levels.main.physics.world.step(dt);
     var timeFrame =  (Date.now() - app.timer )* 0.1;
     app.levels.main.player.update(timeFrame);
+    update_light();
     app.render.render(app.levels.main.scene, app.levels.main.cameras.main);
     app.timer = Date.now();
 }
 
 app.load();
 
+function update_light() {
+  //app.levels.main.lights.hemiLight3.position.copy(app.levels.main.player.position);
+  app.levels.main.lights.hemiLight2.position.copy(app.levels.main.player.position);
+
+}
 
 
