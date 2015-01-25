@@ -13,8 +13,8 @@ var config = {
 
 if(debug.lowRes) {
   var config = {
-    res: 0.50,
-    antialias : true,
+    res: 0.60,
+    antialias : false,
     shadowMapRes: 1
   };
 }
