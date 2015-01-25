@@ -295,7 +295,7 @@ app.init = function(){
   app.levels.main.textures.clocktexture.needsUpdate = true;
   
   app.levels.main.textures.clockcanvasctx.fillStyle = "black";
-  app.levels.main.textures.clockcanvasctx.font = "bold 60px Arial";
+  app.levels.main.textures.clockcanvasctx.font = '60px "LCD"';
   app.levels.main.textures.clockcanvasctx.fillText("03:00:00", 220, 800);
 
   obj ={geometry: parse.geometry, materials: parse.materials};
