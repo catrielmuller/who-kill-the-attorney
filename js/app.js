@@ -283,7 +283,7 @@ app.init = function(){
 
   parse = app.jsonloader.parse(app.assets.jsons.reloj.data, './assets/mapa1/');
   obj ={geometry: parse.geometry, materials: parse.materials};
-  app.levels.main.objs.reloj = new Object3D(obj,null,5);
+  app.levels.main.objs.reloj = new Object3D(obj,null,5, true);
 
 
   app.levels.main.objs.reloj.attachTo(app.levels.main.scene);
