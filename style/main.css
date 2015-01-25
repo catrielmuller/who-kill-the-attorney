@@ -75,27 +75,23 @@ canvas {
 #iteractor-title {
   text-transform: uppercase;
   text-align: center;
-  font-size: 25px;
+  font-size: 35px;
   position: relative;
-  top: 80px;  
+  top: 50px;
+  padding: 0px 10px;
 }
 
 #iteractor-options {
-  font-size: 15px;
+  font-size: 20px;
   position: relative;
-  top: 90px;
+  top: 63px;
   text-transform: uppercase;
 }
 
 #iteractor-options div {
-  float: left;
-  width: 50%;
+  width: 100%;
   text-align: center;
   padding-bottom: 5px;
-}
-
-#iteractor-options div.sel {
-  text-decoration: underline;
 }
 
 #black {
@@ -105,6 +101,19 @@ canvas {
   background: black;
   position: fixed;
   display: none;
+}
+
+#subtitle {
+  z-index: 999;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 35px;
+  color: white;
+  opacity: 0.30;
+  width: 80%;
+  left: 10%;
+  bottom: 30px;
+  position: fixed;
 }
 
 canvas#clocktexture {
