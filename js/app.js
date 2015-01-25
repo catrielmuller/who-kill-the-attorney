@@ -102,6 +102,10 @@ app.loadJsons = function(){
   app.assets.jsons.cocina_techo = app.loader.addJson('assets/mapa1/techo_cocina.json');
   app.assets.jsons.ciudad = app.loader.addJson('assets/mapa1/ciudad.json');
 
+  app.assets.jsons.reloj = app.loader.addJson('assets/mapa1/reloj.json');
+  app.assets.jsons.mano = app.loader.addJson('assets/mapa1/mano.json');
+
+
   app.assets.jsons.mesa_luz = app.loader.addJson('assets/mapa1/mesa_luz.json');
   app.assets.jsons.mesa = app.loader.addJson('assets/mapa1/mesa.json');
 
@@ -265,6 +269,10 @@ app.init = function(){
 
   app.levels.main.objs.mesa_cocina.move(10.3, 0.6,12.7);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> manos
   parse = app.jsonloader.parse(app.assets.jsons.mesa_luz.data, './assets/mapa1/');
   obj ={geometry: parse.geometry, materials: parse.materials};
   app.levels.main.objs.mesa_luz = new Object3D(obj);
@@ -275,6 +283,31 @@ app.init = function(){
   app.levels.main.objs.ciudad = new Object3D(obj);
   app.levels.main.objs.ciudad.attachTo(app.levels.main.scene);
   app.levels.main.objs.ciudad.mesh.receiveShadow = false;
+
+
+  parse = app.jsonloader.parse(app.assets.jsons.reloj.data, './assets/mapa1/');
+  obj ={geometry: parse.geometry, materials: parse.materials};
+  app.levels.main.objs.reloj = new Object3D(obj,null,5);
+
+
+  app.levels.main.objs.reloj.attachTo(app.levels.main.scene);
+  app.levels.main.cameras.main.add(app.levels.main.objs.reloj.mesh);
+  app.levels.main.objs.reloj.mesh.position.set(-2.2,-2.4,-1);
+  app.levels.main.objs.reloj.mesh.rotation.set(Math.PI *0.2,Math.PI *0.9 ,Math.PI *0.1);
+
+  parse = app.jsonloader.parse(app.assets.jsons.mano.data, './assets/mapa1/');
+  obj ={geometry: parse.geometry, materials: parse.materials};
+  app.levels.main.objs.mano = new Object3D(obj,null,5, true);
+  app.levels.main.objs.mano.attachTo(app.levels.main.scene);
+
+
+
+
+
+  app.levels.main.cameras.main.add(app.levels.main.objs.mano.mesh);
+  app.levels.main.objs.mano.mesh.position.set(-2.2,-2.4,-1);
+  app.levels.main.objs.mano.mesh.rotation.set(Math.PI *0.2,Math.PI *0.9 ,Math.PI *0.1);
+
 
   var parse = app.jsonloader.parse(app.assets.jsons.collision.data, '/assets/mapa1/');
   var obj ={geometry: parse.geometry, materials: parse.materials};
@@ -314,7 +347,7 @@ app.init = function(){
       document.getElementById("interactor").style.display = "block";
     }
 
-    
+
   }
 
   app.levels.main.hideaction = function(){
@@ -334,7 +367,7 @@ app.init = function(){
           return;
         }
       }
-      
+
       app.levels.main.hideaction();
       //console.log(pos.x + ' ' + pos.z);
   }
@@ -362,11 +395,11 @@ app.init = function(){
 
         app.shaders.hblur = new THREE.ShaderPass( THREE.HorizontalBlurShader );
         app.shaders.vblur = new THREE.ShaderPass( THREE.VerticalBlurShader );
-        
+
 
         app.composer.addPass( app.shaders.hblur );
         app.composer.addPass( app.shaders.vblur );
-        
+
         document.getElementById("black").style.display = "none";
         var down = new TWEEN.Tween( app.levels.main.cameras.main.position )
             .to( { y: -2 }, 500 ).easing( TWEEN.Easing.Cubic.In ).start();
@@ -375,13 +408,13 @@ app.init = function(){
 
 
         app.animate();
-        
+
         app.assets.sounds.music.play();
-          
+
       }, 500);
     }, 500);
 
-    
+
   }
 
 
@@ -399,7 +432,7 @@ app.animate = function(time){
     var timeFrame =  (Date.now() - app.timer )* 0.1;
     app.levels.main.player.update(timeFrame);
     update_light();
-    
+    app.render.render(app.levels.main.scene, app.levels.main.cameras.main);
     app.timer = Date.now();
     TWEEN.update(time);
 
@@ -409,9 +442,7 @@ app.animate = function(time){
 app.load();
 
 function update_light() {
-  //app.levels.main.lights.hemiLight3.position.copy(app.levels.main.player.position);
   app.levels.main.lights.hemiLight2.position.copy(app.levels.main.player.position);
-
 }
 
 

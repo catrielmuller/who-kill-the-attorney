@@ -54,7 +54,7 @@ Controls.prototype.zoom = function(camera){
       camera.fov = camera.fov - 1;
       camera.updateProjectionMatrix();
 
-      if(camera.fov < 35 ) {
+      if(camera.fov < 45 ) {
         clearInterval(animZoom[0]);
       };
     },10);
@@ -68,7 +68,7 @@ Controls.prototype.zoom = function(camera){
       camera.fov = camera.fov + 1;
       camera.updateProjectionMatrix();
 
-      if(camera.fov > 45 ) {
+      if(camera.fov > 55 ) {
         clearInterval(animZoom[1]);
       };
 
