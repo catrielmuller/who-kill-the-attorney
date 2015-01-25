@@ -54,6 +54,7 @@ function Player(camera){
 
 
     this.body.addEventListener("collide",function(e){
+      console.log(e);
         var contact = e.contact;
         if(contact.bi.id == self.body.id)
             contact.ni.negate(contactNormal);

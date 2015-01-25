@@ -20,6 +20,7 @@ function common() {
         }
     };
 
+    /*
     window.addEventListener('resize', function() {
         var WIDTH = window.innerWidth * config.res,
             HEIGHT = window.innerHeight * config.res;
@@ -27,12 +28,15 @@ function common() {
         camera.aspect = WIDTH / HEIGHT;
         camera.updateProjectionMatrix();
     });
+    */
 
     document.addEventListener('pointerlockchange', lockChangeAlert, false);
     document.addEventListener('mozpointerlockchange', lockChangeAlert, false);
     document.addEventListener('webkitpointerlockchange', lockChangeAlert, false);
 
     function lockChangeAlert() {
+        var canvas = document.querySelector('canvas');
+        
         if(document.pointerLockElement === canvas ||
             document.mozPointerLockElement === canvas ||
             document.webkitPointerLockElement === canvas) {

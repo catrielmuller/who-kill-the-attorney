@@ -29,8 +29,8 @@ app.load = function(){
   });
 
   app.loader.addProgressListener(function(e) {
-    var text = e.completedCount + ' / ' + e.totalCount;
-    document.getElementById("loader").innerHTML = text;
+    var cant = 100 / (e.completedCount / e.totalCount)
+    document.getElementById("loadercount").style.width = cant + '%';
   });
 
   app.loader.addCompletionListener(function(e){
@@ -76,7 +76,9 @@ app.init = function(){
   app.levels.main = {
     cameras: {},
     lights: {},
-    objs: {}
+    objs: {},
+    events: {},
+    cast: []
   }
   
   app.levels.main.scene = new THREE.Scene();
@@ -99,7 +101,7 @@ app.init = function(){
   app.levels.main.lights.hemiLight2 = new THREE.HemisphereLight( 0x0d154f, 0x51a7b1, 0.1 );
   app.levels.main.scene.add(app.levels.main.lights.hemiLight2);
 
-  app.levels.main.cameras.main = new THREE.PerspectiveCamera(45, app.window.width / app.window.height, 0.1, 1000);
+  app.levels.main.cameras.main = new THREE.PerspectiveCamera(60, app.window.width / app.window.height, 1, 1000);
   app.levels.main.scene.add(app.levels.main.cameras.main);
 
   app.levels.main.player = new Player(app.levels.main.cameras.main);
@@ -116,17 +118,33 @@ app.init = function(){
   app.levels.main.objs.cama.move(0,0,0);
   app.levels.main.objs.cama.attachTo(app.levels.main.scene, app.levels.main.physics.world);
 
+  var parse = app.jsonloader.parse(app.assets.jsons.scene.data, 'assets/');
+  var obj ={geometry: parse.geometry, materials: parse.materials};
+  var collisionBound = BoundingBoxCollision(parse.geometry);
+
   app.levels.main.objs.cama2 = new Object3D(obj,collisionBound);
   app.levels.main.objs.cama2.move(0,0,8);
   app.levels.main.objs.cama2.attachTo(app.levels.main.scene, app.levels.main.physics.world);
-  
+
+
+  /*
+  app.levels.main.objs.cama2 = new Object3D(obj,collisionBound);
+  app.levels.main.objs.cama2.move(0,0,8);
+  app.levels.main.objs.cama2.attachTo(app.levels.main.scene, app.levels.main.physics.world);
+
   var parse = app.jsonloader.parse(app.assets.jsons.floor.data, 'assets/');
   var obj ={geometry: parse.geometry, materials: parse.materials};
   app.levels.main.objs.floor = new Object3D(obj);
   app.levels.main.objs.floor.attachTo(app.levels.main.scene);
+  */
   
+  document.getElementById("loaderwrapper").style.display = 'none';
   app.animate();
 }
+
+
+
+
 
 app.animate = function(){
     requestAnimationFrame(app.animate);

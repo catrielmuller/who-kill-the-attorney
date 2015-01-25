@@ -2,15 +2,20 @@
  * Created by i7 on 04/01/15.
  */
 function Object3D( obj, collision, mass) {
+    obj.geometry.computeFaceNormals();
+    obj.geometry.computeVertexNormals();
+    //obj.materials[0].side = THREE.doubleSided;
     this.visible = true;
-    this.mesh = new THREE.Mesh(obj.geometry, obj.materials[0]);
+    this.mesh = new THREE.MorphAnimMesh(obj.geometry, obj.materials[0]);
     this.mesh.castShadow = true;
     this.mesh.receiveShadow = true;
-    this.mesh.doubleSided = true;
+    //this.mesh.doubleSided = true;
 
     this.body = new CANNON.Body({ mass: mass ? mass: 0 });
     this.body.position.set(0,0,0);
     this.mesh.position.copy(this.body.position);
+    //this.mesh.doubleSided = true;
+
     if(collision) {
       this.collision(collision);
     }
