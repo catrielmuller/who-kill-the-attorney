@@ -60,10 +60,12 @@ function Controls(player, utils){
 Controls.prototype.zoom = function(camera){
   var animZoom = [];
   document.addEventListener('mousedown', function(event){
-    if(app.levels.main.currentActtion != null){
-      app.levels.main.currentActtion();
+    if(app.isinit){
+      if(app.levels.main.currentActtion != null){
+        app.levels.main.currentActtion();
+      }
     }
-
+    
     if(animZoom[1]) clearInterval(animZoom[1]);
 
     animZoom[0] = setInterval(function(){

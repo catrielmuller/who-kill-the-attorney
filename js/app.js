@@ -2,6 +2,7 @@ var utils = new common();
 var dt = 1/60;
 
 var app = {
+  isinit: false,
   assets: {
     sounds: {},
     jsons: {},
@@ -410,6 +411,7 @@ app.init = function(){
   app.levels.main.objs.collision.move(0,0,0);
   app.levels.main.objs.collision.attachTo(false, app.levels.main.physics.world);
 
+  app.levels.main.clockdead = false;
   app.levels.main.clockinit = function(hh, mm, ss){
     app.levels.main.clockdate = new Date();
     app.levels.main.clockdate.setHours(hh);
@@ -423,6 +425,23 @@ app.init = function(){
     }
 
     app.levels.main.clockdate.setSeconds(app.levels.main.clockdate.getSeconds() + 1);
+
+    if(app.levels.main.clockdead){
+      var min = app.levels.main.clockdate.getMinutes();
+      var seg = app.levels.main.clockdate.getSeconds();
+      if(min >= 29){
+        if(seg >= 55){
+            app.levels.main.clockdead = false;
+            document.getElementById("black").style.background = "black";
+            document.getElementById("black").style.display = "block";
+            setTimeout(function(){
+              app.levels.main.restart();
+            }, 2000);
+        }
+      }
+    }
+
+
     var str= n(app.levels.main.clockdate.getHours())+":"+n(app.levels.main.clockdate.getMinutes())+":"+n(app.levels.main.clockdate.getSeconds());
     app.levels.main.textures.clockcanvasctx.drawImage(app.assets.images.clocktexture, 0, 0);
     app.levels.main.textures.clockcanvasctx.fillStyle = "black";
@@ -457,7 +476,7 @@ app.init = function(){
   }
 
   app.levels.main.showedaction = false;
-  app.levels.main.currentActtion = false;
+  app.levels.main.currentActtion = null;
   app.levels.main.showaction = function(name, opt1, act1){
     if(!app.levels.main.showedaction){
       app.levels.main.showedaction = true;
@@ -492,8 +511,8 @@ app.init = function(){
 
       if(pos.x > 11.6 && pos.x < 16 && pos.z < -4.3 && pos.z > -4.4 ){
         if(look == 'n'){
-          app.levels.main.showaction('Horno', 'Prender', function(){
-            app.levels.main.showsubtitle('No creo que tengas ganas de comer en este momento');
+          app.levels.main.showaction('Cocina', 'Encender', function(){
+            app.levels.main.showsubtitle('No creo tener hambre en esta situación');
           });
           return;
         }
@@ -516,6 +535,7 @@ app.init = function(){
     document.getElementById("black").style.display = "none";
 
     app.assets.sounds.music.play();
+    app.levels.main.clockdead = true;
 
     setTimeout(function(){
       app.levels.main.player.hidehand();
@@ -551,8 +571,11 @@ app.init = function(){
         .to( { y: -2.4 }, 500 ).easing( TWEEN.Easing.Cubic.Out ).start();
    }
 
+   app.levels.main.newgame = true;
+
   app.levels.main.restart = function(){
-    app.assets.sounds.music.stop();
+    
+    app.levels.main.clockdead = false;
     document.getElementById("black").style.background = "black";
     document.getElementById("black").style.display = "block";
 
@@ -565,10 +588,19 @@ app.init = function(){
     app.assets.sounds.menu.stop();
     document.getElementById("start").style.display = "none";
 
+    if(app.levels.main.newgame){
+      app.levels.main.newgame = false;
+      var timeout = 500;
+    }
+    else {
+      var timeout = 50;
+    }
+
     setTimeout(function(){
       app.assets.sounds.disparo2.play();
 
       setTimeout(function(){
+        app.assets.sounds.music.stop();
         app.assets.sounds.caidamuerte.play();
         app.levels.main.clockinit(3,30,0);
 
@@ -592,12 +624,12 @@ app.init = function(){
         }, 5000);
 
       }, 500);
-    }, 500);
+    }, timeout);
 
 
   }
 
-
+  app.isinit = true;
 }
 
 
