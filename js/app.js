@@ -515,8 +515,7 @@ app.init = function(){
     document.getElementById("black").style.background = "black";
     document.getElementById("black").style.display = "block";
 
-    var canvas = document.querySelector('canvas');
-    canvas.requestPointerLock();
+    app.render.domElement.requestPointerLock();
 
     app.levels.main.player.body.position.set(5.7, 1.2, 2.3);
     app.levels.main.cameras.main.position.set(0,0,0);
