@@ -7,6 +7,8 @@ function Player(camera){
     var mass = 5, radius =  1.3;
     var contactNormal = new CANNON.Vec3();
     var shape = new CANNON.Sphere(radius);
+    self.enablemove = false;
+    self.enableaim = false;
 
     this.aim = new THREE.Object3D();
 
@@ -54,7 +56,6 @@ function Player(camera){
 
 
     this.body.addEventListener("collide",function(e){
-      console.log(e);
         var contact = e.contact;
         if(contact.bi.id == self.body.id)
             contact.ni.negate(contactNormal);

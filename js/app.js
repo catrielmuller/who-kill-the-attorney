@@ -8,7 +8,8 @@ var app = {
   },
   levels: {},
   window: {},
-  timer: new Date()
+  timer: new Date(),
+  shaders: {}
 };
 
 
@@ -40,9 +41,42 @@ app.load = function(){
 }
 
 app.loadSounds = function(){
-  app.assets.sounds.thunder = app.loader.addSound('thunder','sounds/thunder.mp3');
-  app.assets.sounds.rain = app.loader.addSound('rain','sounds/rain.mp3');
-  app.assets.sounds.music = app.loader.addSound('music','sounds/music.mp3');
+  app.assets.sounds.menu = app.loader.addSound('menu', 'sounds/menu.mp3');
+  app.assets.sounds.caidamuerte = app.loader.addSound('caidamuerte', 'sounds/caidamuerte.mp3');
+  app.assets.sounds.abriendocajon = app.loader.addSound('abriendocajon', 'sounds/abriendocajon.mp3');
+  app.assets.sounds.abriendoventana = app.loader.addSound('abriendoventana', 'sounds/abriendoventana.mp3');
+  app.assets.sounds.ambientevecindario = app.loader.addSound('ambientevecindario', 'sounds/ambientevecindario.mp3');
+  app.assets.sounds.carajo1 = app.loader.addSound('carajo1', 'sounds/carajo1.mp3');
+  app.assets.sounds.carajo2 = app.loader.addSound('carajo2', 'sounds/carajo2.mp3');
+  app.assets.sounds.cellularring = app.loader.addSound('cellularring', 'sounds/cellularring.mp3');
+  app.assets.sounds.contestacion911 = app.loader.addSound('contestacion911', 'sounds/contestacion911.mp3');
+  app.assets.sounds.contestacion9112 = app.loader.addSound('contestacion9112', 'sounds/contestacion9112.mp3');
+  app.assets.sounds.contestadortelefono = app.loader.addSound('contestadortelefono', 'sounds/contestadortelefono.mp3');
+  app.assets.sounds.disparo1 = app.loader.addSound('disparo1', 'sounds/disparo1.mp3');
+  app.assets.sounds.disparo2 = app.loader.addSound('disparo2', 'sounds/disparo2.mp3');
+  app.assets.sounds.disparo3 = app.loader.addSound('disparo3', 'sounds/disparo3.mp3');
+  app.assets.sounds.flashbackfx = app.loader.addSound('flashbackfx', 'sounds/flashbackfx.mp3');
+  app.assets.sounds.lavandoselasmanos = app.loader.addSound('lavandoselasmanos', 'sounds/lavandoselasmanos.mp3');
+  app.assets.sounds.letengoquecontarestoaalguien = app.loader.addSound('letengoquecontarestoaalguien', 'sounds/letengoquecontarestoaalguien.mp3');
+  app.assets.sounds.music = app.loader.addSound('music', 'sounds/music.mp3');
+  app.assets.sounds.papelarrugado1 = app.loader.addSound('papelarrugado1', 'sounds/papelarrugado1.mp3');
+  app.assets.sounds.pasandohojas = app.loader.addSound('pasandohojas', 'sounds/pasandohojas.mp3');
+  app.assets.sounds.pasos = app.loader.addSound('pasos', 'sounds/pasos.mp3');
+  app.assets.sounds.pasos2 = app.loader.addSound('pasos2', 'sounds/pasos2.mp3');
+  app.assets.sounds.puerta1 = app.loader.addSound('puerta1', 'sounds/puerta1.mp3');
+  app.assets.sounds.puerta2 = app.loader.addSound('puerta2', 'sounds/puerta2.mp3');
+  app.assets.sounds.quedaslimpio1 = app.loader.addSound('quedaslimpio1', 'sounds/quedaslimpio1.mp3');
+  app.assets.sounds.quehagoahora1 = app.loader.addSound('quehagoahora1', 'sounds/quehagoahora1.mp3');
+  app.assets.sounds.quehagoahora2 = app.loader.addSound('quehagoahora2', 'sounds/quehagoahora2.mp3');
+  app.assets.sounds.radionoticia = app.loader.addSound('radionoticia', 'sounds/radionoticia.mp3');
+  app.assets.sounds.radiostatic = app.loader.addSound('radiostatic', 'sounds/radiostatic.mp3');
+  app.assets.sounds.respiracionpasos1 = app.loader.addSound('respiracionpasos1', 'sounds/respiracionpasos1.mp3');
+  app.assets.sounds.respiracionpasos2 = app.loader.addSound('respiracionpasos2', 'sounds/respiracionpasos2.mp3');
+  app.assets.sounds.respiracionpasos3 = app.loader.addSound('respiracionpasos3', 'sounds/respiracionpasos3.mp3');
+  app.assets.sounds.romperpapel1 = app.loader.addSound('romperpapel1', 'sounds/romperpapel1.mp3');
+  app.assets.sounds.saldo = app.loader.addSound('saldo', 'sounds/saldo.mp3');
+  app.assets.sounds.tuneradio = app.loader.addSound('tuneradio', 'sounds/tuneradio.mp3');
+  app.assets.sounds.tvnoticias = app.loader.addSound('tvnoticias', 'sounds/tvnoticias.mp3');
 
   app.loadImages();
 }
@@ -82,16 +116,23 @@ var pos = {
 };
 app.init = function(){
 
+  app.assets.sounds.menu.options.loops = 100
+  app.assets.sounds.menu.play();
+
   app.window.width = window.innerWidth * config.res;
   app.window.height = window.innerHeight * config.res;
 
   app.render = new THREE.WebGLRenderer({antialias: config.antialias});
+  app.render.setPixelRatio( window.devicePixelRatio );
 
   app.render.setSize(app.window.width, app.window.height);
   app.render.shadowMapEnabled = true;
   app.render.shadowMapType  = THREE.BasicShadowMap;
   app.render.setClearColor(0x00000, 1);
   document.body.appendChild(app.render.domElement);
+
+  app.composer = new THREE.EffectComposer( app.render  );
+
 
   utils.lockPointer();
 
@@ -132,6 +173,16 @@ app.init = function(){
 
   app.levels.main.cameras.main = new THREE.PerspectiveCamera(60, app.window.width / app.window.height, 1, 1000);
   app.levels.main.scene.add(app.levels.main.cameras.main);
+
+  var renderPass = new THREE.RenderPass( app.levels.main.scene, app.levels.main.cameras.main );
+  var copyPass = new THREE.ShaderPass( THREE.CopyShader );
+  copyPass.renderToScreen = true;
+
+  app.composer.addPass( renderPass );
+  app.composer.addPass( copyPass );
+
+  //hblur = new THREE.ShaderPass( THREE.HorizontalBlurShader );
+  //app.composer.addPass( hblur );
 
   app.levels.main.player = new Player(app.levels.main.cameras.main);
   app.levels.main.player.attachTo(app.levels.main.scene, app.levels.main.physics.world);
@@ -214,9 +265,6 @@ app.init = function(){
 
   app.levels.main.objs.mesa_cocina.move(10.3, 0.6,12.7);
 
-
-
-
   parse = app.jsonloader.parse(app.assets.jsons.mesa_luz.data, './assets/mapa1/');
   obj ={geometry: parse.geometry, materials: parse.materials};
   app.levels.main.objs.mesa_luz = new Object3D(obj);
@@ -236,21 +284,126 @@ app.init = function(){
   app.levels.main.objs.collision.move(0,0,0);
   app.levels.main.objs.collision.attachTo(false, app.levels.main.physics.world);
 
-  app.animate();
+  app.levels.main.player.lookat = function(){
+    var posbody = app.levels.main.player.body.position;
+    var posaim = app.levels.main.player.aim.position;
+    var diffz = posbody.z - posaim.z;
+    if(diffz > 2){
+      return 'n';
+    }
+    if(diffz < -2){
+      return 's';
+    }
+    var diffx = posbody.x - posaim.x;
+    if(diffx > 2){
+      return 'o';
+    }
+    if(diffx < -2){
+      return 'e';
+    }
+  }
+
+  app.levels.main.showedaction = false;
+  app.levels.main.showaction = function(name, opt1, opt2, act1, act2){
+    if(!app.levels.main.showedaction){
+      app.levels.main.showedaction = true;
+      document.getElementById("iteractor-title").innerHTML = name;
+      document.getElementById("iteractor-option1").innerHTML = opt1;
+      document.getElementById("iteractor-option2").innerHTML = opt2;
+
+      document.getElementById("interactor").style.display = "block";
+    }
+
+    
+  }
+
+  app.levels.main.hideaction = function(){
+    if(app.levels.main.showedaction){
+      app.levels.main.showedaction = false;
+      document.getElementById("interactor").style.display = "none";
+    }
+  }
+
+  app.levels.main.collisions = function(){
+      var pos = app.levels.main.player.body.position;
+      var look = app.levels.main.player.lookat();
+
+      if(pos.x > 11.6 && pos.x < 16 && pos.z < -4.3 && pos.z > -4.4 ){
+        if(look == 'n'){
+          app.levels.main.showaction('Horno', 'Prender', 'Otro', null, null);
+          return;
+        }
+      }
+      
+      app.levels.main.hideaction();
+      //console.log(pos.x + ' ' + pos.z);
+  }
+
+  app.levels.main.restart = function(){
+    app.assets.sounds.music.stop();
+    document.getElementById("black").style.display = "block";
+
+    var canvas = document.querySelector('canvas');
+    canvas.requestPointerLock();
+
+
+    app.levels.main.player.body.position.set(5.7, 1.2, 2.3);
+    app.assets.sounds.menu.stop();
+    document.getElementById("start").style.display = "none";
+
+    setTimeout(function(){
+      app.assets.sounds.disparo2.play();
+
+      setTimeout(function(){
+        app.assets.sounds.caidamuerte.play();
+
+        app.levels.main.cameras.main.position.set(0,0,0);
+        app.levels.main.cameras.main.rotation.set(0,0,0);
+
+        app.shaders.hblur = new THREE.ShaderPass( THREE.HorizontalBlurShader );
+        app.shaders.vblur = new THREE.ShaderPass( THREE.VerticalBlurShader );
+        
+
+        app.composer.addPass( app.shaders.hblur );
+        app.composer.addPass( app.shaders.vblur );
+        
+        document.getElementById("black").style.display = "none";
+        var down = new TWEEN.Tween( app.levels.main.cameras.main.position )
+            .to( { y: -2 }, 500 ).easing( TWEEN.Easing.Cubic.In ).start();
+        var downl = new TWEEN.Tween( app.levels.main.cameras.main.rotation )
+            .to( { x: -0.5, y: -1.5, z: -1 }, 500 ).easing( TWEEN.Easing.Cubic.In ).start();
+
+
+        app.animate();
+        
+        app.assets.sounds.music.play();
+          
+      }, 500);
+    }, 500);
+
+    
+  }
+
+
 }
 
 
 
 
 
-app.animate = function(){
+app.animate = function(time){
     requestAnimationFrame(app.animate);
+
+    app.levels.main.collisions();
     app.levels.main.physics.world.step(dt);
     var timeFrame =  (Date.now() - app.timer )* 0.1;
     app.levels.main.player.update(timeFrame);
     update_light();
-    app.render.render(app.levels.main.scene, app.levels.main.cameras.main);
+    
     app.timer = Date.now();
+    TWEEN.update(time);
+
+    app.composer.render(0.05);
 }
 
 app.load();
