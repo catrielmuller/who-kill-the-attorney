@@ -34,7 +34,7 @@ function Player(camera){
     this.quat = new THREE.Quaternion();
 
     this.rotObj = new THREE.Object3D();
-    this.rotObj.position.set(0,2,0);
+    this.rotObj.position.set(0,3,0);
 
     this.posObj = new THREE.Object3D();
     this.posObj.add( this.rotObj );

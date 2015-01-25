@@ -110,12 +110,16 @@ app.loadJsons = function(){
   app.assets.jsons.lavarropas = app.loader.addJson('assets/mapa1/lavarropas.json');
   app.assets.jsons.lavadero = app.loader.addJson('assets/mapa1/lavadero.json');
   app.assets.jsons.sillon = app.loader.addJson('assets/mapa1/sillon.json');
+  app.assets.jsons.sillon_2 = app.loader.addJson('assets/mapa1/sillon_2.json');
+  app.assets.jsons.foto = app.loader.addJson('assets/mapa1/foto.json');
 
   app.assets.jsons.vidrio = app.loader.addJson('assets/mapa1/vidrio.json');
 
   app.assets.jsons.cocina_techo = app.loader.addJson('assets/mapa1/techo_all.json');
   app.assets.jsons.ciudad = app.loader.addJson('assets/mapa1/ciudad.json');
   app.assets.jsons.ciudad_2 = app.loader.addJson('assets/mapa1/ciudad_2.json');
+  app.assets.jsons.veladores = app.loader.addJson('assets/mapa1/veladores.json');
+  app.assets.jsons.caja = app.loader.addJson('assets/mapa1/cajafuerte.json');
 
   app.assets.jsons.reloj = app.loader.addJson('assets/mapa1/reloj.json');
   app.assets.jsons.mano = app.loader.addJson('assets/mapa1/mano.json');
@@ -123,6 +127,9 @@ app.loadJsons = function(){
 
   app.assets.jsons.mesa_luz = app.loader.addJson('assets/mapa1/mesa_luz.json');
   app.assets.jsons.mesa = app.loader.addJson('assets/mapa1/mesa.json');
+
+  app.assets.jsons.mesa_2 = app.loader.addJson('assets/mapa1/mesa_2.json');
+
 
   app.assets.jsons.collision = app.loader.addJson('assets/mapa1/collision.json');
 
@@ -234,6 +241,16 @@ app.init = function(){
   app.levels.main.objs.cocina = new Object3D(obj);
   app.levels.main.objs.cocina.attachTo(app.levels.main.scene);
 
+  parse = app.jsonloader.parse(app.assets.jsons.veladores.data, './assets/mapa1/');
+  obj ={geometry: parse.geometry, materials: parse.materials};
+  app.levels.main.objs.veladores = new Object3D(obj);
+  app.levels.main.objs.veladores.attachTo(app.levels.main.scene);
+
+  parse = app.jsonloader.parse(app.assets.jsons.caja.data, './assets/mapa1/');
+  obj ={geometry: parse.geometry, materials: parse.materials};
+  app.levels.main.objs.caja = new Object3D(obj);
+  app.levels.main.objs.caja.attachTo(app.levels.main.scene);
+
   parse = app.jsonloader.parse(app.assets.jsons.pared_1.data, './assets/mapa1/');
   obj ={geometry: parse.geometry, materials: parse.materials};
   app.levels.main.objs.pared_1 = new Object3D(obj);
@@ -249,6 +266,11 @@ app.init = function(){
   app.levels.main.objs.sillon = new Object3D(obj);
   app.levels.main.objs.sillon.attachTo(app.levels.main.scene);
 
+  parse = app.jsonloader.parse(app.assets.jsons.sillon_2.data, './assets/mapa1/');
+  obj ={geometry: parse.geometry, materials: parse.materials};
+  app.levels.main.objs.sillon_2 = new Object3D(obj);
+  app.levels.main.objs.sillon_2.attachTo(app.levels.main.scene);
+
   parse = app.jsonloader.parse(app.assets.jsons.lavarropas.data, './assets/mapa1/');
   obj ={geometry: parse.geometry, materials: parse.materials};
   app.levels.main.objs.lavarropas = new Object3D(obj);
@@ -263,6 +285,11 @@ app.init = function(){
   obj ={geometry: parse.geometry, materials: parse.materials};
   app.levels.main.objs.cama = new Object3D(obj);
   app.levels.main.objs.cama.attachTo(app.levels.main.scene);
+
+  parse = app.jsonloader.parse(app.assets.jsons.foto.data, './assets/mapa1/');
+  obj ={geometry: parse.geometry, materials: parse.materials};
+  app.levels.main.objs.foto = new Object3D(obj);
+  app.levels.main.objs.foto.attachTo(app.levels.main.scene);
 
 
   parse = app.jsonloader.parse(app.assets.jsons.pared_2.data, './assets/mapa1/');
@@ -307,18 +334,16 @@ app.init = function(){
   app.levels.main.objs.cocina_piso = new Object3D(obj);
   app.levels.main.objs.cocina_piso.attachTo(app.levels.main.scene);
 
+  parse = app.jsonloader.parse(app.assets.jsons.mesa_2.data, './assets/mapa1/');
+  obj ={geometry: parse.geometry, materials: parse.materials};
+  app.levels.main.objs.mesa_2 = new Object3D(obj);
+  app.levels.main.objs.mesa_2.attachTo(app.levels.main.scene);
+
   parse = app.jsonloader.parse(app.assets.jsons.mesa.data, './assets/mapa1/');
   obj ={geometry: parse.geometry, materials: parse.materials};
   app.levels.main.objs.mesa = new Object3D(obj);
   app.levels.main.objs.mesa.attachTo(app.levels.main.scene);
 
-
-
-  app.levels.main.objs.mesa_cocina = new Object3D(obj);
-  app.levels.main.objs.mesa_cocina.attachTo(app.levels.main.scene);
-  app.levels.main.objs.mesa_cocina.mesh.scale.set(0.65,0.65,0.65);
-
-  app.levels.main.objs.mesa_cocina.move(10.3, 0.6,12.7);
 
 
   parse = app.jsonloader.parse(app.assets.jsons.mesa_luz.data, './assets/mapa1/');

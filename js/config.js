@@ -15,6 +15,6 @@ if(debug.lowRes) {
   var config = {
     res: 0.60,
     antialias : false,
-    shadowMapRes: 1
+    shadowMapRes: 3
   };
 }
