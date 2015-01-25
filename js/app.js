@@ -269,10 +269,6 @@ app.init = function(){
 
   app.levels.main.objs.mesa_cocina.move(10.3, 0.6,12.7);
 
-<<<<<<< HEAD
-=======
-
->>>>>>> manos
   parse = app.jsonloader.parse(app.assets.jsons.mesa_luz.data, './assets/mapa1/');
   obj ={geometry: parse.geometry, materials: parse.materials};
   app.levels.main.objs.mesa_luz = new Object3D(obj);
