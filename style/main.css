@@ -130,10 +130,20 @@ canvas#clocktexture {
   height: 100%;
   position: fixed;
   background: url("../img/logo.png") no-repeat center center;
-  background-size: cover;
+  
 }
 
-#startimage {
+#startaction  {
+  display: block;
+  position: absolute;
+  bottom: 100px;
+  font-size:40px;
+  margin: 0px auto;
+  color: white;
+  width: 100%;
+  text-align: center;
+}
+#credits  {
   display: block;
   position: absolute;
   bottom: 50px;
