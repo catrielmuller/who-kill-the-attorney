@@ -1,0 +1,52 @@
+	{
+
+		"metadata": {
+			"formatVersion" : 3.1,
+			"generatedBy"   : "Blender 2.7 Exporter",
+			"vertices"      : 4,
+			"faces"         : 1,
+			"normals"       : 1,
+			"colors"        : 0,
+			"uvs"           : [4],
+			"materials"     : 1,
+			"morphTargets"  : 0,
+			"bones"         : 0
+		},
+
+			"scale" : 1.000000,
+			
+			"vertices" : [2.20577,7.01264,11.2236,16.8167,7.01264,11.2236,2.20577,7.01264,-8.78149,16.8167,7.01264,-8.78149],
+			"faces"    : [43,0,2,3,1,0,0,1,2,3,0,0,0,0],
+			"uvs"      : [[0.0001,0.0001,0.0001,0.9999,0.9999,0.9999,0.9999,0.0001]],
+			"normals"  : [0,-1,0],
+			
+			"skinIndices"  : [],
+			"skinWeights"  : [],
+			"morphTargets" : [],
+			
+			"bones"      : [],
+			"animations" : [],
+			
+			"colors"    : [],
+			"materials" : [
+				{
+					"DbgColor": 15658734,
+					"DbgIndex": 0,
+					"DbgName": "Material.005",
+					"blending": "NormalBlending",
+					"colorAmbient": [1.0, 1.0, 1.0],
+					"colorDiffuse": [1.0, 1.0, 1.0],
+					"colorEmissive": [0.0, 0.0, 0.0],
+					"colorSpecular": [0.0, 0.0, 0.0],
+					"depthTest": true,
+					"depthWrite": true,
+					"shading": "Phong",
+					"specularCoef": 50,
+					"transparency": 1.0,
+					"transparent": false,
+					"vertexColors": false
+				}
+			]
+
+
+	}

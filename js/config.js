@@ -5,7 +5,6 @@ var debug = {
   bound: false
 };
 
-
 var config = {
   res: 1,
   antialias : true,
@@ -14,7 +13,7 @@ var config = {
 
 if(debug.lowRes) {
   var config = {
-    res: 0.5,
+    res: 0.50,
     antialias : true,
     shadowMapRes: 1
   };

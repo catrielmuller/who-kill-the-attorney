@@ -1,0 +1,62 @@
+	{
+
+		"metadata": {
+			"formatVersion" : 3.1,
+			"generatedBy"   : "Blender 2.7 Exporter",
+			"vertices"      : 4,
+			"faces"         : 1,
+			"normals"       : 0,
+			"colors"        : 0,
+			"uvs"           : [4],
+			"materials"     : 1,
+			"morphTargets"  : 0,
+			"bones"         : 0
+		},
+
+			"scale" : 1.000000,
+
+			"vertices" : [2.45513,0.0919477,10.8821,16.5673,0.0919477,10.8821,2.45513,0.0919469,-8.44007,16.5673,0.0919469,-8.44007],
+			"faces"    : [11,0,1,3,2,0,0,1,2,3],
+			"uvs"      : [[0.0001,0.0001,0.9999,0.0001,0.9999,0.9999,0.0001,0.9999]],
+			"normals"  : [],
+
+			"skinIndices"  : [],
+			"skinWeights"  : [],
+			"morphTargets" : [],
+
+			"bones"      : [],
+			"animations" : [],
+
+			"colors"    : [],
+			"materials" : [
+				{
+					"DbgColor": 15658734,
+					"DbgIndex": 0,
+					"DbgName": "Material.004",
+					"blending": "NormalBlending",
+					"colorAmbient": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					"colorDiffuse": [0.6400000190734865, 0.6400000190734865, 0.6400000190734865],
+					"colorEmissive": [0.0, 0.0, 0.0],
+					"colorSpecular": [0.2, 0.2, 0.2],
+					"depthTest": true,
+					"depthWrite": true,
+					"mapBump": "pisoparque_normal.jpg",
+					"mapBumpRepeat": [5, 5],
+					"mapBumpScale": 0.05,
+					"mapBumpWrap": ["repeat", "repeat"],
+					"mapDiffuse": "pisoparque_diff.jpg",
+					"mapDiffuseRepeat": [5, 5],
+					"mapDiffuseWrap": ["repeat", "repeat"],
+					"mapSpecular": "pisoparque_specular.jpg",
+					"mapSpecularRepeat": [5, 5],
+					"mapSpecularWrap": ["repeat", "repeat"],
+					"shading": "Phong",
+					"specularCoef": 50,
+					"transparency": 1.0,
+					"transparent": false,
+					"vertexColors": false
+				}
+			]
+
+
+	}

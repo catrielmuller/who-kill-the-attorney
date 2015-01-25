@@ -1,26 +1,46 @@
 function Controls(player, utils){
   var PI_2 = Math.PI / 2;
 
+  utils.pressKey(82, function(){
+  }, function(){
+    if(player.enablemove){
+      if(app.levels.main.player.showedhand){
+        app.levels.main.player.hidehand();
+      }
+      else {
+        app.levels.main.player.showhand();
+      }
+    }
+  });
+
   utils.pressKey(87, function(){
-    player.movDirection.forward = 1;
+    if(player.enablemove){
+      player.movDirection.forward = 1;
+    }
   }, function(){
     player.movDirection.forward = 0;
   });
 
   utils.pressKey(83, function(){
-    player.movDirection.forward = -1;
+    if(player.enablemove){
+      player.movDirection.forward = -1;
+    }
   }, function(){
     player.movDirection.forward = 0;
   });
 
   utils.pressKey(65, function(){
-    player.movDirection.lateral = 1;
+    if(player.enablemove){
+      player.movDirection.lateral = 1;
+    }  
   }, function(){
     player.movDirection.lateral = 0;
   });
 
   utils.pressKey(68, function(){
-    player.movDirection.lateral = -1;
+    if(player.enablemove){
+      player.movDirection.lateral = -1;
+    }  
   }, function(){
     player.movDirection.lateral = 0;
   });
@@ -28,9 +48,11 @@ function Controls(player, utils){
   document.addEventListener( 'mousemove', function(event){
     var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
     var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
-    player.posObj.rotation.y -= movementX * 0.002;
-    player.rotObj.rotation.x -= movementY * 0.002;
-    player.rotObj.rotation.x = Math.max( - PI_2, Math.min( PI_2, player.rotObj.rotation.x ) );
+    if(player.enableaim){
+      player.posObj.rotation.y -= movementX * 0.002;
+      player.rotObj.rotation.x -= movementY * 0.002;
+      player.rotObj.rotation.x = Math.max( - PI_2, Math.min( PI_2, player.rotObj.rotation.x ) );
+    }
   }, false );
 
 }
@@ -44,7 +66,7 @@ Controls.prototype.zoom = function(camera){
       camera.fov = camera.fov - 1;
       camera.updateProjectionMatrix();
 
-      if(camera.fov < 35 ) {
+      if(camera.fov < 45 ) {
         clearInterval(animZoom[0]);
       };
     },10);
@@ -58,7 +80,7 @@ Controls.prototype.zoom = function(camera){
       camera.fov = camera.fov + 1;
       camera.updateProjectionMatrix();
 
-      if(camera.fov > 45 ) {
+      if(camera.fov > 55 ) {
         clearInterval(animZoom[1]);
       };
 

@@ -7,14 +7,16 @@ function Player(camera){
     var mass = 5, radius =  1.3;
     var contactNormal = new CANNON.Vec3();
     var shape = new CANNON.Sphere(radius);
+    self.enablemove = false;
+    self.enableaim = false;
 
     this.aim = new THREE.Object3D();
-
+    this.objs = [];
     this.flashlight  = new THREE.SpotLight( 0xfffde8,2);
     this.flashlight.castShadow = true;
     this.flashlight.shadowCameraNear = 0.1;
     this.flashlight.shadowCameraFar = 100;//camera.far;
-    this.flashlight.shadowCameraFov = 75;
+    this.flashlight.shadowCameraFov = 105;
     this.flashlight.shadowMapBias = 0.1;
     this.flashlight.shadowDarkness = 0.8;
     this.flashlight.shadowMapWidth = config.shadowMapRes * 512;
@@ -65,6 +67,10 @@ function Player(camera){
 
 }
 
+Player.prototype.attachObj = function(obj) {
+
+}
+
 Player.prototype.update = function(delta){
   var euler = new THREE.Euler();
   var velocityFactor = 3;
@@ -100,6 +106,8 @@ Player.prototype.update = function(delta){
 
   this.posObj.position.copy(this.body.position);
   this.position = this.body.position;
+
+
   // update aim in front off
   this.aim.position.x = this.posObj.position.x - Math.sin(this.posObj.rotation.y)* Math.cos(this.rotObj.rotation.x) * 5;
   this.aim.position.y = this.posObj.position.y + 1 + Math.sin(this.rotObj.rotation.x) * 5;

@@ -2,7 +2,8 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>No Signal</title>
+        <title>Who KIll The Attorney</title>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="style/main.css">
     </head>
     <audio autoplay="true" style="display:none;" loop ="true">
@@ -12,10 +13,49 @@
       <!--<source src="sounds/musica.mp3" type="audio/mp3">-->
     </audio>
     <body>
+        <div id="loaderwrapper">
+            <div id="loader">
+                <div class="loader"></div>
+            </div>
+            <div id="loaderbar">
+                <div id="loadercount"></div>
+            </div>
+        </div>
+        <div id="start">
+            <div id="startcontent">
+                <div id="startimage">
+                    <a href="#" onclick="app.levels.main.restart()" id="startaction">START</a>
+                </div>
+            </div>
+        </div>
+        <div id="interactor">
+            <div id="iteractor-title">Expediente</div>
+            <div id="iteractor-options">
+                <div id="iteractor-option1" class="sel">Coger</div>
+                <div id="iteractor-option2">Soltar</div> 
+            </div>
+        </div>
+        <div id="black"></div>
+        <canvas id="clocktexture" width="1024px" height="1024px" style="font-family: 'LCD'"></canvas>
     <!--Vendors -->
-    <script src="js/three.js"></script>
-    <script src="js/cannon.js"></script>
+    <script src="js/libs/Three.js"></script>
+    <script src="js/libs/postprocessing/EffectComposer.js"></script>
+    <script src="js/libs/postprocessing/RenderPass.js"></script>
+    <script src="js/libs/postprocessing/MaskPass.js"></script>
+    <script src="js/libs/postprocessing/ShaderPass.js"></script>
 
+    <script src="js/libs/shaders/CopyShader.js"></script>
+    <script src="js/libs/shaders/FilmShader.js"></script>
+
+    <script src="js/libs/Cannon.js"></script>
+    <script src="js/libs/tween.min.js"></script>
+
+    <script src="js/libs/Soundmanager2.js"></script>
+
+    <script src="js/libs/PxLoader.js"></script>
+    <script src="js/libs/PxLoaderJson.js"></script>
+    <script src="js/libs/PxLoaderImage.js"></script>
+    <script src="js/libs/PxLoaderSound.js"></script>
 
     <script src="js/config.js"></script>
     <script src="js/utils.js"></script>
