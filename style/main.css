@@ -112,7 +112,7 @@ canvas#clocktexture {
   height: 1024px !important;
   position: fixed;
   z-index: 9999;
-  top: -640px;
+  top: -2048px;
 }
 
 #startcontent{

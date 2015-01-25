@@ -289,14 +289,14 @@ app.init = function(){
 
   app.levels.main.textures.clockcanvas = document.getElementById("clocktexture");
   app.levels.main.textures.clockcanvasctx = app.levels.main.textures.clockcanvas.getContext("2d");
-  app.levels.main.textures.clockcanvasctx.drawImage(app.assets.images.clocktexture, 0, 0);
 
   app.levels.main.textures.clocktexture = new THREE.Texture(app.levels.main.textures.clockcanvas);
   app.levels.main.textures.clocktexture.needsUpdate = true;
   
+  app.levels.main.textures.clockcanvasctx.drawImage(app.assets.images.clocktexture, 0, 0);
   app.levels.main.textures.clockcanvasctx.fillStyle = "black";
-  app.levels.main.textures.clockcanvasctx.font = '60px "LCD"';
-  app.levels.main.textures.clockcanvasctx.fillText("03:00:00", 220, 800);
+  app.levels.main.textures.clockcanvasctx.font = '50px "LCD"';
+  app.levels.main.textures.clockcanvasctx.fillText("00:00:00", 210, 825);
 
   obj ={geometry: parse.geometry, materials: parse.materials};
   app.levels.main.objs.reloj = new Object3D(obj,null,5, true);
@@ -329,7 +329,32 @@ app.init = function(){
   app.levels.main.objs.collision.move(0,0,0);
   app.levels.main.objs.collision.attachTo(false, app.levels.main.physics.world);
 
+  app.levels.main.clockinit = function(hh, mm, ss){
+    app.levels.main.clockdate = new Date();
+    app.levels.main.clockdate.setHours(hh);
+    app.levels.main.clockdate.setMinutes(mm);
+    app.levels.main.clockdate.setSeconds(ss);
+  }
 
+  app.levels.main.clockloop = function(){
+    function n(n){
+        return n > 9 ? "" + n: "0" + n;
+    }
+
+    app.levels.main.clockdate.setSeconds(app.levels.main.clockdate.getSeconds() + 1);
+    var str= n(app.levels.main.clockdate.getHours())+":"+n(app.levels.main.clockdate.getMinutes())+":"+n(app.levels.main.clockdate.getSeconds());
+    app.levels.main.textures.clockcanvasctx.drawImage(app.assets.images.clocktexture, 0, 0);
+    app.levels.main.textures.clockcanvasctx.fillStyle = "black";
+    app.levels.main.textures.clockcanvasctx.font = '60px "LCD"';
+    app.levels.main.textures.clockcanvasctx.fillText(str, 190, 825);
+    app.levels.main.objs.reloj.mesh.material.map = app.levels.main.textures.clocktexture;
+    app.levels.main.objs.reloj.mesh.material.needsUpdate = true;
+    app.levels.main.objs.reloj.mesh.material.map.needsUpdate = true;
+    window.setTimeout("app.levels.main.clockloop()",1000);
+  }
+
+  app.levels.main.clockinit(0,0,0);
+  app.levels.main.clockloop();
 
   app.levels.main.player.lookat = function(){
     var posbody = app.levels.main.player.body.position;
@@ -386,13 +411,62 @@ app.init = function(){
       //console.log(pos.x + ' ' + pos.z);
   }
 
+  app.levels.main.standup = function(){
+
+    app.levels.main.player.body.position.set(7.13, 1.29, 2.5);
+    app.levels.main.cameras.main.position.set(0,0,0);
+    app.levels.main.cameras.main.rotation.set(0,0,0);
+
+    app.levels.main.clockinit(3,25,0);
+
+    app.levels.main.player.enablemove = true;
+    app.levels.main.player.enableaim = true;
+
+    document.getElementById("black").style.display = "none";
+
+    app.assets.sounds.music.play();
+
+    setTimeout(function(){
+      app.levels.main.player.hidehand();
+    }, 4000);
+
+  }
+
+  app.levels.main.player.showedhand = true;
+  app.levels.main.player.hidehand = function(){
+    app.levels.main.player.showedhand = false;
+
+    var down = new TWEEN.Tween( app.levels.main.objs.reloj.mesh.rotation )
+            .to( { y: 0 }, 500 ).easing( TWEEN.Easing.Cubic.In ).start();
+    var downl = new TWEEN.Tween( app.levels.main.objs.mano.mesh.rotation )
+        .to( { y: 0 }, 500 ).easing( TWEEN.Easing.Cubic.In ).start();
+    var down = new TWEEN.Tween( app.levels.main.objs.reloj.mesh.position )
+            .to( { y: -4 }, 500 ).easing( TWEEN.Easing.Cubic.In ).start();
+    var downl = new TWEEN.Tween( app.levels.main.objs.mano.mesh.position )
+        .to( { y: -4 }, 500 ).easing( TWEEN.Easing.Cubic.In ).start();
+
+  }
+
+   app.levels.main.player.showhand = function(){
+    app.levels.main.player.showedhand = true;
+
+    var up = new TWEEN.Tween( app.levels.main.objs.reloj.mesh.rotation )
+            .to( { y: Math.PI *0.9 }, 500 ).easing( TWEEN.Easing.Cubic.Out ).start();
+    var up = new TWEEN.Tween( app.levels.main.objs.mano.mesh.rotation )
+        .to( { y: Math.PI *0.9}, 500 ).easing( TWEEN.Easing.Cubic.Out ).start();
+    var up = new TWEEN.Tween( app.levels.main.objs.reloj.mesh.position )
+            .to( { y: -2.4 }, 500 ).easing( TWEEN.Easing.Cubic.Out ).start();
+    var up = new TWEEN.Tween( app.levels.main.objs.mano.mesh.position )
+        .to( { y: -2.4 }, 500 ).easing( TWEEN.Easing.Cubic.Out ).start();
+   }
+
   app.levels.main.restart = function(){
     app.assets.sounds.music.stop();
+    document.getElementById("black").style.background = "black";
     document.getElementById("black").style.display = "block";
 
     var canvas = document.querySelector('canvas');
     canvas.requestPointerLock();
-
 
     app.levels.main.player.body.position.set(5.7, 1.2, 2.3);
     app.levels.main.cameras.main.position.set(0,0,0);
@@ -406,15 +480,12 @@ app.init = function(){
 
       setTimeout(function(){
         app.assets.sounds.caidamuerte.play();
+        app.levels.main.clockinit(3,30,0);
 
         app.animate();
 
-        app.shaders.hblur = new THREE.ShaderPass( THREE.HorizontalBlurShader );
-        app.shaders.vblur = new THREE.ShaderPass( THREE.VerticalBlurShader );
-
-
-        app.composer.addPass( app.shaders.hblur );
-        app.composer.addPass( app.shaders.vblur );
+        app.shaders.film = new THREE.ShaderPass( THREE.FilmShader );
+        app.composer.addPass( app.shaders.film );
 
         document.getElementById("black").style.display = "none";
         var down = new TWEEN.Tween( app.levels.main.cameras.main.position )
@@ -422,9 +493,17 @@ app.init = function(){
         var downl = new TWEEN.Tween( app.levels.main.cameras.main.rotation )
             .to( { x: -0.5, y: -1.5, z: -1 }, 500 ).easing( TWEEN.Easing.Cubic.In ).start();
 
+        setTimeout(function(){
+          document.getElementById("black").style.background = "white";
+          document.getElementById("black").style.display = "block";
 
-        app.assets.sounds.music.play();
+          app.assets.sounds.flashbackfx.play();
 
+          setTimeout(function(){
+            app.levels.main.standup();
+          }, 1000);
+        }, 5000);
+        
       }, 500);
     }, 500);
 

@@ -1,6 +1,18 @@
 function Controls(player, utils){
   var PI_2 = Math.PI / 2;
 
+  utils.pressKey(82, function(){
+  }, function(){
+    if(player.enablemove){
+      if(app.levels.main.player.showedhand){
+        app.levels.main.player.hidehand();
+      }
+      else {
+        app.levels.main.player.showhand();
+      }
+    }
+  });
+
   utils.pressKey(87, function(){
     if(player.enablemove){
       player.movDirection.forward = 1;
