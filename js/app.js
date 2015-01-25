@@ -136,9 +136,16 @@ app.loadJsons = function(){
 
   app.loader.start();
 }
+
+app.soundlevels = function(){
+  app.assets.sounds.music.volume = 50
+}
+
 app.init = function(){
 
-  app.assets.sounds.menu.options.loops = 100
+  app.soundlevels();
+  app.assets.sounds.menu.options.loops = 1000
+  app.assets.sounds.ambientevecindario.options.loops = 100
   app.assets.sounds.menu.play();
 
   app.window.width = window.innerWidth * config.res;
@@ -505,11 +512,19 @@ app.init = function(){
     }
   }
 
+  app.levels.main.ambientplay = false;
+  app.levels.main.clearambientsounds = function(){
+    app.assets.sounds.ambientevecindario.stop();
+    app.levels.main.ambientplay = false;
+  }
+
   app.levels.main.collisions = function(){
       var pos = app.levels.main.player.body.position;
       var look = app.levels.main.player.lookat();
 
-      if(pos.x > 11.6 && pos.x < 16 && pos.z < -4.3 && pos.z > -4.4 ){
+      //console.log(pos.x + ' ' + pos.z);
+
+      if(pos.x > 12.4 && pos.x < 16.23 && pos.z > -4.41 && pos.z < -4.10 ){
         if(look == 'n'){
           app.levels.main.showaction('Cocina', 'Encender', function(){
             app.levels.main.showsubtitle('No creo tener hambre en esta situación');
@@ -517,7 +532,42 @@ app.init = function(){
           return;
         }
       }
+      else if( pos.x > 12.94 && pos.x < 15.37 && pos.z > -4.41 && pos.z < 1.64  ) {
+        if(look == 'e'){
+          if(app.levels.main.ambientplay == false){
+            app.levels.main.ambientplay = true;
+            app.assets.sounds.ambientevecindario.play();
+          }
+          
+          app.levels.main.showsubtitle('No tengo tiempo para mirar el paisaje');
+          return;
+        }
+      }
+      else if( pos.x > -10.90 && pos.x < 14.29 && pos.z > -28.62 && pos.z < -24.31  ) {
+        if(look == 'n'){
+          if(app.levels.main.ambientplay == false){
+            app.levels.main.ambientplay = true;
+            app.assets.sounds.ambientevecindario.play();
+          }
+          app.levels.main.showsubtitle('No tengo tiempo para mirar el paisaje');
+          return;
+        }
+      }
+      else if( pos.x > 4.25 && pos.x < 6.5 && pos.z > 7.1 && pos.z < 7.82  ) {
+        if(look == 's'){
+          app.levels.main.showaction('Cajón', 'Abrir', function(){
+            app.assets.sounds.abriendocajon.play();
+            app.levels.main.showsubtitle('8760, ¿Para qué sirve éste número?');
+            setTimeout(function(){
+              app.assets.sounds.quehagoahora1.play();
+            }, 1000);
+          });
+          return;
+        }
+      }
 
+      
+      app.levels.main.clearambientsounds();
       app.levels.main.hideaction();
   }
 
@@ -608,7 +658,7 @@ app.init = function(){
 
         document.getElementById("black").style.display = "none";
         var down = new TWEEN.Tween( app.levels.main.cameras.main.position )
-            .to( { y: -2 }, 500 ).easing( TWEEN.Easing.Cubic.In ).start();
+            .to( { y: -3.3 }, 500 ).easing( TWEEN.Easing.Cubic.In ).start();
         var downl = new TWEEN.Tween( app.levels.main.cameras.main.rotation )
             .to( { x: -0.5, y: -1.5, z: -1 }, 500 ).easing( TWEEN.Easing.Cubic.In ).start();
 
