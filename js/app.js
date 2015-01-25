@@ -187,36 +187,24 @@ app.init = function(){
   var copyPass = new THREE.ShaderPass( THREE.CopyShader );
   copyPass.renderToScreen = true;
 
-  app.composer.addPass( renderPass );
-  app.composer.addPass( copyPass );
+  var effectSepia = new THREE.ShaderPass( THREE.SepiaShader  );
+  var effectVignette = new THREE.ShaderPass( THREE.VignetteShader  );
+  effectSepia.uniforms[ "amount" ].value = 0.5;
+  effectVignette.uniforms[ "offset" ].value = 0.95;
+  effectVignette.uniforms[ "darkness" ].value = 1;
+  var effectFilm = new THREE.FilmPass( 0.35, 0.025, 648, false );
 
-  //hblur = new THREE.ShaderPass( THREE.HorizontalBlurShader );
-  //app.composer.addPass( hblur );
+  app.composer.addPass( renderPass );
+  app.composer.addPass( effectSepia );
+  app.composer.addPass( effectFilm );
+  app.composer.addPass( effectVignette );
+  app.composer.addPass( copyPass );
 
   app.levels.main.player = new Player(app.levels.main.cameras.main);
   app.levels.main.player.attachTo(app.levels.main.scene, app.levels.main.physics.world);
 
   app.levels.main.controls = new Controls(app.levels.main.player, utils);
   app.levels.main.controls.zoom(app.levels.main.cameras.main);
-/*
-  var parse = app.jsonloader.parse(app.assets.jsons.scene.data, 'assets/');
-  var obj ={geometry: parse.geometry, materials: parse.materials};
-  var collisionBound = BoundingBoxCollision(parse.geometry);
-
-  app.levels.main.objs.cama = new Object3D(obj,collisionBound);
-  app.levels.main.objs.cama.move(0,0,0);
-  app.levels.main.objs.cama.attachTo(app.levels.main.scene, app.levels.main.physics.world);
-
-  var parse = app.jsonloader.parse(app.assets.jsons.scene.data, 'assets/');
-  var obj ={geometry: parse.geometry, materials: parse.materials};
-  var collisionBound = BoundingBoxCollision(parse.geometry);
-
-  app.levels.main.objs.cama2 = new Object3D(obj,collisionBound);
-  app.levels.main.objs.cama2.move(0,0,8);
-  app.levels.main.objs.cama2.attachTo(app.levels.main.scene, app.levels.main.physics.world);
-
-*/
-
 
   document.getElementById("loaderwrapper").style.display = 'none';
   parse = app.jsonloader.parse(app.assets.jsons.cocina.data, './assets/mapa1/');
@@ -483,9 +471,6 @@ app.init = function(){
 
         app.animate();
 
-        app.shaders.film = new THREE.ShaderPass( THREE.FilmShader );
-        app.composer.addPass( app.shaders.film );
-
         document.getElementById("black").style.display = "none";
         var down = new TWEEN.Tween( app.levels.main.cameras.main.position )
             .to( { y: -2 }, 500 ).easing( TWEEN.Easing.Cubic.In ).start();
@@ -524,11 +509,11 @@ app.animate = function(time){
     var timeFrame =  (Date.now() - app.timer )* 0.1;
     app.levels.main.player.update(timeFrame);
     update_light();
-    app.render.render(app.levels.main.scene, app.levels.main.cameras.main);
+    //app.render.render(app.levels.main.scene, app.levels.main.cameras.main);
     app.timer = Date.now();
     TWEEN.update(time);
 
-    app.composer.render(0.05);
+    app.composer.render();
 }
 
 app.load();
