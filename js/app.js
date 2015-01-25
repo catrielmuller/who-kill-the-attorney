@@ -68,6 +68,10 @@ app.loadJsons = function(){
   app.assets.jsons.cocina_techo = app.loader.addJson('assets/mapa1/techo_cocina.json');
   app.assets.jsons.ciudad = app.loader.addJson('assets/mapa1/ciudad.json');
 
+  app.assets.jsons.reloj = app.loader.addJson('assets/mapa1/reloj.json');
+  app.assets.jsons.mano = app.loader.addJson('assets/mapa1/mano.json');
+
+
   app.assets.jsons.mesa_luz = app.loader.addJson('assets/mapa1/mesa_luz.json');
   app.assets.jsons.mesa = app.loader.addJson('assets/mapa1/mesa.json');
 
@@ -215,8 +219,6 @@ app.init = function(){
   app.levels.main.objs.mesa_cocina.move(10.3, 0.6,12.7);
 
 
-
-
   parse = app.jsonloader.parse(app.assets.jsons.mesa_luz.data, './assets/mapa1/');
   obj ={geometry: parse.geometry, materials: parse.materials};
   app.levels.main.objs.mesa_luz = new Object3D(obj);
@@ -227,6 +229,31 @@ app.init = function(){
   app.levels.main.objs.ciudad = new Object3D(obj);
   app.levels.main.objs.ciudad.attachTo(app.levels.main.scene);
   app.levels.main.objs.ciudad.mesh.receiveShadow = false;
+
+
+  parse = app.jsonloader.parse(app.assets.jsons.reloj.data, './assets/mapa1/');
+  obj ={geometry: parse.geometry, materials: parse.materials};
+  app.levels.main.objs.reloj = new Object3D(obj,null,5);
+
+
+  app.levels.main.objs.reloj.attachTo(app.levels.main.scene);
+  app.levels.main.cameras.main.add(app.levels.main.objs.reloj.mesh);
+  app.levels.main.objs.reloj.mesh.position.set(-2.2,-2.4,-1);
+  app.levels.main.objs.reloj.mesh.rotation.set(Math.PI *0.2,Math.PI *0.9 ,Math.PI *0.1);
+
+  parse = app.jsonloader.parse(app.assets.jsons.mano.data, './assets/mapa1/');
+  obj ={geometry: parse.geometry, materials: parse.materials};
+  app.levels.main.objs.mano = new Object3D(obj,null,5, true);
+  app.levels.main.objs.mano.attachTo(app.levels.main.scene);
+
+
+
+
+
+  app.levels.main.cameras.main.add(app.levels.main.objs.mano.mesh);
+  app.levels.main.objs.mano.mesh.position.set(-2.2,-2.4,-1);
+  app.levels.main.objs.mano.mesh.rotation.set(Math.PI *0.2,Math.PI *0.9 ,Math.PI *0.1);
+
 
   var parse = app.jsonloader.parse(app.assets.jsons.collision.data, '/assets/mapa1/');
   var obj ={geometry: parse.geometry, materials: parse.materials};
@@ -248,7 +275,9 @@ app.animate = function(){
     app.levels.main.physics.world.step(dt);
     var timeFrame =  (Date.now() - app.timer )* 0.1;
     app.levels.main.player.update(timeFrame);
-    update_light();
+  update_hand();
+
+  update_light();
     app.render.render(app.levels.main.scene, app.levels.main.cameras.main);
     app.timer = Date.now();
 }
@@ -258,6 +287,19 @@ app.load();
 function update_light() {
   //app.levels.main.lights.hemiLight3.position.copy(app.levels.main.player.position);
   app.levels.main.lights.hemiLight2.position.copy(app.levels.main.player.position);
+
+}
+
+function update_hand() {
+  //var player =  app.levels.main.player;
+  //console.log(player.posObj);
+
+  //app.levels.main.objs.mano.move(player.aim.position.x *0.9 ,player.aim.position.y + 1,player.aim.position.z *0.9);
+  //app.levels.main.objs.reloj.move(player.aim.position.x *0.9 ,player.aim.position.y + 1,player.aim.position.z *0.9);
+
+  //app.levels.main.objs.reloj.mesh.quaternion.copy(player.quat);
+//  app.levels.main.objs.mano.mesh.quaternion.copy(player.quat);
+//  app.levels.main.objs.mano.mesh.rotation.set(player.rotObj.rotation.x,player.posObj.rotation.y,player.rotObj.rotation.z);
 
 }
 
