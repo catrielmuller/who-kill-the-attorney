@@ -124,6 +124,7 @@ app.loadJsons = function(){
   app.assets.jsons.cel = app.loader.addJson('assets/mapa1/cel.json');
 
   app.assets.jsons.pistola = app.loader.addJson('assets/mapa1/pistola.json');
+  app.assets.jsons.mes = app.loader.addJson('assets/mapa1/mes.json');
 
   app.assets.jsons.reloj = app.loader.addJson('assets/mapa1/reloj.json');
   app.assets.jsons.mano = app.loader.addJson('assets/mapa1/mano.json');
@@ -364,6 +365,10 @@ app.init = function(){
   app.levels.main.objs.mesa_2 = new Object3D(obj);
   app.levels.main.objs.mesa_2.attachTo(app.levels.main.scene);
 
+  parse = app.jsonloader.parse(app.assets.jsons.mes.data, './assets/mapa1/');
+  obj ={geometry: parse.geometry, materials: parse.materials};
+  app.levels.main.objs.mes = new Object3D(obj);
+  app.levels.main.objs.mes.attachTo(app.levels.main.scene);
 
 
 
