@@ -120,6 +120,7 @@ app.loadJsons = function(){
   app.assets.jsons.ciudad_2 = app.loader.addJson('assets/mapa1/ciudad_2.json');
   app.assets.jsons.veladores = app.loader.addJson('assets/mapa1/veladores.json');
   app.assets.jsons.caja = app.loader.addJson('assets/mapa1/cajafuerte.json');
+  app.assets.jsons.pistola = app.loader.addJson('assets/mapa1/pistola.json');
 
   app.assets.jsons.reloj = app.loader.addJson('assets/mapa1/reloj.json');
   app.assets.jsons.mano = app.loader.addJson('assets/mapa1/mano.json');
@@ -261,6 +262,15 @@ app.init = function(){
   app.levels.main.objs.vidrio = new Object3D(obj);
   app.levels.main.objs.vidrio.attachTo(app.levels.main.scene);
 
+  parse = app.jsonloader.parse(app.assets.jsons.pistola.data, './assets/mapa1/');
+  obj ={geometry: parse.geometry, materials: parse.materials};
+  app.levels.main.objs.pistola = new Object3D(obj);
+  app.levels.main.objs.pistola.attachTo(app.levels.main.scene);
+  app.levels.main.objs.pistola.mesh.position.y = -0.7;
+  app.levels.main.objs.pistola.mesh.position.z = -1;
+
+
+
   parse = app.jsonloader.parse(app.assets.jsons.sillon.data, './assets/mapa1/');
   obj ={geometry: parse.geometry, materials: parse.materials};
   app.levels.main.objs.sillon = new Object3D(obj);
@@ -339,10 +349,6 @@ app.init = function(){
   app.levels.main.objs.mesa_2 = new Object3D(obj);
   app.levels.main.objs.mesa_2.attachTo(app.levels.main.scene);
 
-  parse = app.jsonloader.parse(app.assets.jsons.mesa.data, './assets/mapa1/');
-  obj ={geometry: parse.geometry, materials: parse.materials};
-  app.levels.main.objs.mesa = new Object3D(obj);
-  app.levels.main.objs.mesa.attachTo(app.levels.main.scene);
 
 
 
@@ -474,7 +480,7 @@ app.init = function(){
   app.levels.main.showsubtitle = function(text){
     document.getElementById("subtitle").innerHTML = text;
     setTimeout(function(){
-      document.getElementById("subtitle").innerHTML = '';   
+      document.getElementById("subtitle").innerHTML = '';
     }, 2500);
   }
 

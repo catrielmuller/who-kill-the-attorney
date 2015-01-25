@@ -114,6 +114,6 @@ Player.prototype.update = function(delta){
   this.aim.position.z = this.posObj.position.z - Math.cos(this.posObj.rotation.y)*  Math.cos(this.rotObj.rotation.x) * 5;
 
   this.flashlight.position.x = this.posObj.position.x - Math.sin(this.posObj.rotation.y)* Math.cos(this.rotObj.rotation.x) * - 1;
-  this.flashlight.position.y = this.posObj.position.y + 2 + Math.sin(this.rotObj.rotation.x) ;
+  this.flashlight.position.y = this.posObj.position.y + 4 + Math.sin(this.rotObj.rotation.x) ;
   this.flashlight.position.z = this.posObj.position.z - Math.cos(this.posObj.rotation.y)*  Math.cos(this.rotObj.rotation.x)   * -1;
 };
