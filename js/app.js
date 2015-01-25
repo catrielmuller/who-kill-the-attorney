@@ -121,6 +121,8 @@ app.loadJsons = function(){
   app.assets.jsons.ciudad_2 = app.loader.addJson('assets/mapa1/ciudad_2.json');
   app.assets.jsons.veladores = app.loader.addJson('assets/mapa1/veladores.json');
   app.assets.jsons.caja = app.loader.addJson('assets/mapa1/cajafuerte.json');
+  app.assets.jsons.cel = app.loader.addJson('assets/mapa1/cel.json');
+
   app.assets.jsons.pistola = app.loader.addJson('assets/mapa1/pistola.json');
 
   app.assets.jsons.reloj = app.loader.addJson('assets/mapa1/reloj.json');
@@ -254,6 +256,11 @@ app.init = function(){
   obj ={geometry: parse.geometry, materials: parse.materials};
   app.levels.main.objs.veladores = new Object3D(obj);
   app.levels.main.objs.veladores.attachTo(app.levels.main.scene);
+
+  parse = app.jsonloader.parse(app.assets.jsons.cel.data, './assets/mapa1/');
+  obj ={geometry: parse.geometry, materials: parse.materials};
+  app.levels.main.objs.cel = new Object3D(obj);
+  app.levels.main.objs.cel.attachTo(app.levels.main.scene);
 
   parse = app.jsonloader.parse(app.assets.jsons.caja.data, './assets/mapa1/');
   obj ={geometry: parse.geometry, materials: parse.materials};
@@ -544,7 +551,7 @@ app.init = function(){
             app.levels.main.ambientplay = true;
             app.assets.sounds.ambientevecindario.play();
           }
-          
+
           app.levels.main.showsubtitle('No tengo tiempo para mirar el paisaje');
           return;
         }
@@ -572,7 +579,7 @@ app.init = function(){
         }
       }
 
-      
+
       app.levels.main.clearambientsounds();
       app.levels.main.hideaction();
   }
@@ -630,7 +637,7 @@ app.init = function(){
    app.levels.main.newgame = true;
 
   app.levels.main.restart = function(){
-    
+
     app.levels.main.clockdead = false;
     document.getElementById("black").style.background = "black";
     document.getElementById("black").style.display = "block";
