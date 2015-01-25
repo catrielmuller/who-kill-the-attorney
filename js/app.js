@@ -377,6 +377,9 @@ app.init = function(){
 
 
     app.levels.main.player.body.position.set(5.7, 1.2, 2.3);
+    app.levels.main.cameras.main.position.set(0,0,0);
+    app.levels.main.cameras.main.rotation.set(0,0,0);
+    
     app.assets.sounds.menu.stop();
     document.getElementById("start").style.display = "none";
 
@@ -386,8 +389,7 @@ app.init = function(){
       setTimeout(function(){
         app.assets.sounds.caidamuerte.play();
 
-        app.levels.main.cameras.main.position.set(0,0,0);
-        app.levels.main.cameras.main.rotation.set(0,0,0);
+        app.animate();
 
         app.shaders.hblur = new THREE.ShaderPass( THREE.HorizontalBlurShader );
         app.shaders.vblur = new THREE.ShaderPass( THREE.VerticalBlurShader );
@@ -402,8 +404,6 @@ app.init = function(){
         var downl = new TWEEN.Tween( app.levels.main.cameras.main.rotation )
             .to( { x: -0.5, y: -1.5, z: -1 }, 500 ).easing( TWEEN.Easing.Cubic.In ).start();
 
-
-        app.animate();
 
         app.assets.sounds.music.play();
 
