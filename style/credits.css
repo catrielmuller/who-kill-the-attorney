@@ -1,0 +1,44 @@
+@font-face {
+  font-family: LCD;
+  src: url(../fonts/LCD.ttf);
+}
+html, body {
+
+    background-color: #000000;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background: black;
+    font-family: "LCD";
+}
+#volver {
+  display: block;
+  position: absolute;
+  bottom: 50px;
+  font-size: 40px;
+  margin: 0px auto;
+  color: white;
+  width: 100%;
+  text-align: center;
+}
+ #staft{ 
+  display: block;
+  position: absolute;
+  top: 50px;
+  font-size: 15px;
+  margin: 0px auto;
+  color: white;
+  width: 100%;
+  text-align: center;
+  }
+
+  #startimage a {
+  text-decoration: none;
+  font-weight: bold; 
+  color: white;
+}
+
+#startimage a:hover{
+  font-size: 45px;
+}
