@@ -432,22 +432,31 @@ app.init = function(){
   }
 
   app.levels.main.showedaction = false;
-  app.levels.main.showaction = function(name, opt1, opt2, act1, act2){
+  app.levels.main.currentActtion = false;
+  app.levels.main.showaction = function(name, opt1, act1){
     if(!app.levels.main.showedaction){
       app.levels.main.showedaction = true;
       document.getElementById("iteractor-title").innerHTML = name;
       document.getElementById("iteractor-option1").innerHTML = opt1;
-      document.getElementById("iteractor-option2").innerHTML = opt2;
-
       document.getElementById("interactor").style.display = "block";
+
+      if(act1 != null){
+        app.levels.main.currentActtion = act1;
+      }
     }
+  }
 
-
+  app.levels.main.showsubtitle = function(text){
+    document.getElementById("subtitle").innerHTML = text;
+    setTimeout(function(){
+      document.getElementById("subtitle").innerHTML = '';   
+    }, 2500);
   }
 
   app.levels.main.hideaction = function(){
     if(app.levels.main.showedaction){
       app.levels.main.showedaction = false;
+      app.levels.main.currentActtion = null;
       document.getElementById("interactor").style.display = "none";
     }
   }
@@ -458,13 +467,14 @@ app.init = function(){
 
       if(pos.x > 11.6 && pos.x < 16 && pos.z < -4.3 && pos.z > -4.4 ){
         if(look == 'n'){
-          app.levels.main.showaction('Horno', 'Prender', 'Otro', null, null);
+          app.levels.main.showaction('Horno', 'Prender', function(){
+            app.levels.main.showsubtitle('No creo que tengas ganas de comer en este momento');
+          });
           return;
         }
       }
 
       app.levels.main.hideaction();
-      //console.log(pos.x + ' ' + pos.z);
   }
 
   app.levels.main.standup = function(){
