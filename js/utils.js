@@ -5,7 +5,7 @@ function common() {
     var self = this;
     this.lockPointer = function() {
 
-        var canvas = document.querySelector('canvas');
+        var canvas = app.render.domElement;
 
         canvas.requestPointerLock = canvas.requestPointerLock ||
         canvas.mozRequestPointerLock ||
