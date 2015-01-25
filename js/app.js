@@ -4,7 +4,8 @@ var dt = 1/60;
 var app = {
   assets: {
     sounds: {},
-    jsons: {}
+    jsons: {},
+    images: {}
   },
   levels: {},
   window: {},
@@ -83,6 +84,9 @@ app.loadSounds = function(){
 
 app.loadImages = function(){
 
+  app.assets.images.clocktexture = app.loader.addImage('assets/mapa1/reloj_diff.jpg');
+
+
   app.loadJsons();
 }
 
@@ -145,7 +149,8 @@ app.init = function(){
     lights: {},
     objs: {},
     events: {},
-    cast: []
+    cast: [],
+    textures: {}
   }
 
   app.levels.main.scene = new THREE.Scene();
@@ -280,11 +285,25 @@ app.init = function(){
   app.levels.main.objs.ciudad.attachTo(app.levels.main.scene);
   app.levels.main.objs.ciudad.mesh.receiveShadow = false;
 
-
   parse = app.jsonloader.parse(app.assets.jsons.reloj.data, './assets/mapa1/');
+
+  app.levels.main.textures.clockcanvas = document.getElementById("clocktexture");
+  app.levels.main.textures.clockcanvasctx = app.levels.main.textures.clockcanvas.getContext("2d");
+  app.levels.main.textures.clockcanvasctx.drawImage(app.assets.images.clocktexture, 0, 0);
+
+  app.levels.main.textures.clocktexture = new THREE.Texture(app.levels.main.textures.clockcanvas);
+  app.levels.main.textures.clocktexture.needsUpdate = true;
+  
+  app.levels.main.textures.clockcanvasctx.fillStyle = "black";
+  app.levels.main.textures.clockcanvasctx.font = "bold 60px Arial";
+  app.levels.main.textures.clockcanvasctx.fillText("03:00:00", 220, 800);
+
   obj ={geometry: parse.geometry, materials: parse.materials};
   app.levels.main.objs.reloj = new Object3D(obj,null,5, true);
 
+  app.levels.main.objs.reloj.mesh.material.map = app.levels.main.textures.clocktexture;
+  app.levels.main.objs.reloj.mesh.material.needsUpdate = true;
+  app.levels.main.objs.reloj.mesh.material.map.needsUpdate = true;
 
   app.levels.main.objs.reloj.attachTo(app.levels.main.scene);
   app.levels.main.cameras.main.add(app.levels.main.objs.reloj.mesh);
@@ -295,9 +314,6 @@ app.init = function(){
   obj ={geometry: parse.geometry, materials: parse.materials};
   app.levels.main.objs.mano = new Object3D(obj,null,5, true);
   app.levels.main.objs.mano.attachTo(app.levels.main.scene);
-
-
-
 
 
   app.levels.main.cameras.main.add(app.levels.main.objs.mano.mesh);
@@ -312,6 +328,8 @@ app.init = function(){
   app.levels.main.objs.collision = new Object3D(obj,collisionBound);
   app.levels.main.objs.collision.move(0,0,0);
   app.levels.main.objs.collision.attachTo(false, app.levels.main.physics.world);
+
+
 
   app.levels.main.player.lookat = function(){
     var posbody = app.levels.main.player.body.position;
