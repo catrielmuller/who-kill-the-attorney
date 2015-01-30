@@ -174,7 +174,9 @@ app.init = function(){
   app.render.setClearColor(0x00000, 1);
   document.body.appendChild(app.render.domElement);
 
-  app.composer = new THREE.EffectComposer( app.render  );
+  if(debug.lowRes == false){
+    app.composer = new THREE.EffectComposer( app.render  );
+  }
 
 
   utils.lockPointer();
@@ -234,22 +236,26 @@ app.init = function(){
   app.levels.main.cameras.main = new THREE.PerspectiveCamera(60, app.window.width / app.window.height, 1, 1000);
   app.levels.main.scene.add(app.levels.main.cameras.main);
 
-  var renderPass = new THREE.RenderPass( app.levels.main.scene, app.levels.main.cameras.main );
-  var copyPass = new THREE.ShaderPass( THREE.CopyShader );
-  copyPass.renderToScreen = true;
+  if(debug.lowRes == false){
+      var renderPass = new THREE.RenderPass( app.levels.main.scene, app.levels.main.cameras.main );
+      var copyPass = new THREE.ShaderPass( THREE.CopyShader );
+      copyPass.renderToScreen = true;
 
-  var effectSepia = new THREE.ShaderPass( THREE.SepiaShader  );
-  var effectVignette = new THREE.ShaderPass( THREE.VignetteShader  );
-  effectSepia.uniforms[ "amount" ].value = 0.5;
-  effectVignette.uniforms[ "offset" ].value = 0.95;
-  effectVignette.uniforms[ "darkness" ].value = 1;
-  var effectFilm = new THREE.FilmPass( 0.35, 0.025, 648, false );
+      var effectSepia = new THREE.ShaderPass( THREE.SepiaShader  );
+      var effectVignette = new THREE.ShaderPass( THREE.VignetteShader  );
+      effectSepia.uniforms[ "amount" ].value = 0.5;
+      effectVignette.uniforms[ "offset" ].value = 0.95;
+      effectVignette.uniforms[ "darkness" ].value = 1;
+      var effectFilm = new THREE.FilmPass( 0.35, 0.025, 648, false );
 
-  app.composer.addPass( renderPass );
-  app.composer.addPass( effectSepia );
-  app.composer.addPass( effectFilm );
-  app.composer.addPass( effectVignette );
-  app.composer.addPass( copyPass );
+      app.composer.addPass( renderPass );
+      app.composer.addPass( effectSepia );
+      app.composer.addPass( effectFilm );
+      app.composer.addPass( effectVignette );
+      app.composer.addPass( copyPass );
+  }
+
+  
 
   app.levels.main.player = new Player(app.levels.main.cameras.main);
   app.levels.main.player.attachTo(app.levels.main.scene, app.levels.main.physics.world);
@@ -825,11 +831,16 @@ app.animate = function(time){
     var timeFrame =  (Date.now() - app.timer )* 0.1;
     app.levels.main.player.update(timeFrame);
     update_light();
-    //app.render.render(app.levels.main.scene, app.levels.main.cameras.main);
     app.timer = Date.now();
     TWEEN.update(time);
 
-    app.composer.render();
+    if(debug.lowRes == false){
+      app.composer.render();
+    }
+    else {
+      app.render.render(app.levels.main.scene, app.levels.main.cameras.main);
+    }
+
 }
 
 app.load();
