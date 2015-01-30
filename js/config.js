@@ -1,7 +1,20 @@
+var resin = window.location.hash.substring(1);
+if(resin == 'hd'){
+  var lowres = false;
+  document.getElementById("enablehd").className = 'active';
+}
+else {
+  var lowres = true; 
+  document.getElementById("enablesd").className = 'active';
+}
+
+
+
+
 var debug = {
   sound: false,
   shadowLight: false,
-  lowRes : true,
+  lowRes : lowres,
   bound: false
 };
 

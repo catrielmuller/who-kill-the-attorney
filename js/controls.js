@@ -13,6 +13,11 @@ function Controls(player, utils){
     }
   });
 
+  utils.pressKey(69, function(){
+  }, function(){
+    app.levels.main.debug();
+  });
+
   utils.pressKey(87, function(){
     if(player.enablemove){
       player.movDirection.forward = 1;
