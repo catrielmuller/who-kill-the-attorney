@@ -73,7 +73,7 @@ Player.prototype.attachObj = function(obj) {
 
 Player.prototype.update = function(delta){
   var euler = new THREE.Euler();
-  var velocityFactor = 3;
+  var velocityFactor = 3.5;
 
   this.velocityInput.set(0,0,0);
 

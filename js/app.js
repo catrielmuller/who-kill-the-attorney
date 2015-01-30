@@ -42,6 +42,16 @@ app.load = function(){
 
 }
 
+app.enablehd = function() {
+  window.location.hash = 'hd';
+  setTimeout(window.location.reload(), 1000);
+}
+
+app.enablesd = function() {
+  window.location.hash = 'sd';
+  setTimeout(window.location.reload(), 1000);
+}
+
 app.loadSounds = function(){
   app.assets.sounds.menu = app.loader.addSound('menu', 'sounds/menu.mp3');
   app.assets.sounds.caidamuerte = app.loader.addSound('caidamuerte', 'sounds/caidamuerte.mp3');
@@ -536,20 +546,28 @@ app.init = function(){
     app.levels.main.ambientplay = false;
   }
 
+  app.levels.main.debug = function(){
+    var pos = app.levels.main.player.body.position;
+    var look = app.levels.main.player.lookat();
+
+    console.log(pos.x + ' | ' + pos.z + ' | ' + look); 
+  }
+
   app.levels.main.collisions = function(){
       var pos = app.levels.main.player.body.position;
       var look = app.levels.main.player.lookat();
 
       //console.log(pos.x + ' ' + pos.z);
 
-      if(pos.x > 12.4 && pos.x < 16.23 && pos.z > -4.41 && pos.z < -4.10 ){
+      if(pos.x > 12.4 && pos.x < 16.23 && pos.z > -4.60 && pos.z < -4.20 ){
         if(look == 'n'){
-          app.levels.main.showaction('Cocina', 'Encender', function(){
-            app.levels.main.showsubtitle('No creo tener hambre en esta situación');
+          app.levels.main.showaction('<br>Cocina', 'Encender', function(){
+            app.levels.main.showsubtitle('No creo tener hambre en esta situacion');
           });
           return;
         }
       }
+      
       else if( pos.x > 12.94 && pos.x < 15.37 && pos.z > -4.41 && pos.z < 1.64  ) {
         if(look == 'e'){
           if(app.levels.main.ambientplay == false){
@@ -561,6 +579,7 @@ app.init = function(){
           return;
         }
       }
+      
       else if( pos.x > -10.90 && pos.x < 14.29 && pos.z > -28.62 && pos.z < -24.31  ) {
         if(look == 'n'){
           if(app.levels.main.ambientplay == false){
@@ -571,15 +590,100 @@ app.init = function(){
           return;
         }
       }
-      else if( pos.x > 4.25 && pos.x < 6.5 && pos.z > 7.1 && pos.z < 7.82  ) {
+      
+      else if( pos.x > 4.25 && pos.x < 7.44 && pos.z > 6.60 && pos.z < 7.82  ) {
         if(look == 's'){
-          app.levels.main.showaction('Cajón', 'Abrir', function(){
-            app.assets.sounds.abriendocajon.play();
-            app.levels.main.showsubtitle('8760, ¿Para qué sirve éste número?');
-            setTimeout(function(){
-              app.assets.sounds.quehagoahora1.play();
-            }, 1000);
-          });
+          if(app.levels.main.vars.clave == false){
+            app.levels.main.showaction('<br>Cajon', 'Abrir', function(){
+              app.levels.main.vars.clave = true;
+              app.assets.sounds.abriendocajon.play();
+              app.levels.main.showsubtitle('8760, ¿Para que sirve este numero?');
+              setTimeout(function(){
+                app.assets.sounds.quehagoahora1.play();
+              }, 1000);
+            });
+          }
+          else {
+            app.levels.main.showaction('<br>Cajon', 'Abrir', function(){
+              app.assets.sounds.abriendocajon.play();
+              app.levels.main.showsubtitle('Aqui no hay mas nada');
+              setTimeout(function(){
+                app.assets.sounds.quehagoahora1.play();
+              }, 1000);
+            });
+          }          
+          return;
+        }
+      }
+      
+      else if( pos.x > 3.53 && pos.x < 4.95 && pos.z > 12.40 && pos.z < 15.54  ) {
+        if(look == 'n'){
+          if(app.levels.main.vars.telefono == 0){
+            app.levels.main.showaction('<br>Telefono', 'Llamar', function(){
+              app.levels.main.vars.telefono = 1;
+              app.assets.sounds.saldo.play();
+              app.levels.main.showsubtitle('Creo que me equivoque de numero');
+            });
+          }
+          else if(app.levels.main.vars.telefono == 1) {
+            app.levels.main.showaction('<br>Telefono', 'Llamar 911', function(){
+              app.assets.sounds.contestacion9112.play();
+              app.levels.main.player.showhand();
+              setTimeout(function(){
+                app.levels.main.player.hidehand();
+                app.levels.main.showsubtitle('No tengo tanto tiempo');
+                app.assets.sounds.carajo2.play();
+              }, 5000);
+            });
+          }
+          else if(app.levels.main.vars.telefono == 2) {
+            app.levels.main.showaction('<br>Telefono', 'Llamar a XXXX', function(){
+              document.getElementById("black").style.background = "white";
+              document.getElementById("black").style.display = "block";
+              app.assets.sounds.music.stop();
+              app.assets.sounds.quedaslimpio1.play();
+              setTimeout(function(){
+                location.replace('/html/final.html');
+              }, 5000);
+            });
+          }         
+          return;
+        }
+      }
+
+
+      else if( pos.x > -0.64 && pos.x < 2.83 && pos.z > 26.32 && pos.z < 27.86  ) {
+        if(look == 's'){
+          if(app.levels.main.vars.clave == false){
+            app.levels.main.showaction('Caja Fuerte', 'Abrir', function(){
+              app.levels.main.showsubtitle('No recuerdo la clave, Debe estar por algun lado anotada');              
+            });
+          }
+          else {
+            app.levels.main.showaction('Caja Fuerte', 'Abrir', function(){
+              app.assets.sounds.pasandohojas.play();
+              app.levels.main.showsubtitle('Voy a repasar el expediente');
+              setTimeout(function(){
+                app.levels.main.vars.telefono = 2;
+                app.assets.sounds.letengoquecontarestoaalguien.play();
+              }, 3000);
+            });
+          }          
+          return;
+        }
+      }
+      
+      else if( pos.x > -10.06 && pos.x < -7.20 && pos.z > -24.06 && pos.z < -19.93  ) {
+        if(look == 'e'){
+          app.levels.main.showaction('<br>Pistola', 'Usar', function(){
+              app.levels.main.clockdead = false;
+              app.assets.sounds.music.stop();
+              document.getElementById("black").style.background = "black";
+              document.getElementById("black").style.display = "block";
+              setTimeout(function(){
+                app.levels.main.restart();
+              }, 2000);
+          });          
           return;
         }
       }
@@ -643,11 +747,20 @@ app.init = function(){
 
   app.levels.main.restart = function(){
 
+    app.levels.main.vars = {
+      clave: false,
+      documento: false,
+      telefono: 0,
+    }
+
     app.levels.main.clockdead = false;
     document.getElementById("black").style.background = "black";
     document.getElementById("black").style.display = "block";
 
     app.render.domElement.requestPointerLock();
+
+    app.levels.main.player.enablemove = false;
+    app.levels.main.player.enableaim = false;
 
     app.levels.main.player.body.position.set(5.7, 1.2, 2.3);
     app.levels.main.cameras.main.position.set(0,0,0);
@@ -658,10 +771,10 @@ app.init = function(){
 
     if(app.levels.main.newgame){
       app.levels.main.newgame = false;
-      var timeout = 500;
+      var timeout = 1000;
     }
     else {
-      var timeout = 50;
+      var timeout = 200;
     }
 
     setTimeout(function(){

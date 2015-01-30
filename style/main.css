@@ -31,6 +31,8 @@ canvas {
 	position: fixed;
 	width: 100%;
 	height: 100%;
+  z-index: 9999;
+  background: black;
 }
 
 #loader {
@@ -136,6 +138,27 @@ canvas#clocktexture {
   position: fixed;
   background: url("../img/logo.png") no-repeat center center;
   
+}
+
+#resolution {
+  color: white;
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  font-size: 20px;
+}
+
+#startimage #resolution a.active {
+  text-decoration: underline;
+}
+
+#startimage #resolution a{
+  font-weight: normal;
+}
+
+#startimage #resolution a:hover{
+  font-size: 20px;
+  font-weight: bold;
 }
 
 #startaction  {
