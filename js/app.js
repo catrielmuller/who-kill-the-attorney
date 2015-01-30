@@ -643,7 +643,7 @@ app.init = function(){
               app.assets.sounds.music.stop();
               app.assets.sounds.quedaslimpio1.play();
               setTimeout(function(){
-                location.replace('/html/final.html');
+                location.replace('html/final.html');
               }, 5000);
             });
           }         
